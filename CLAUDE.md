@@ -58,3 +58,20 @@ Rules:
 - A user-invoked skill may invoke model-invoked skills.
 - A user-invoked skill must never invoke another user-invoked skill.
 - Use user-invoked for entry points and routers; model-invoked for the reusable discipline underneath.
+
+## Skill Quality
+
+**A good skill:**
+- Does exactly one thing. If it's doing two, split it.
+- Has a trigger the agent can reliably detect from the description alone (model-invoked), or a name the user will remember (user-invoked).
+- States explicit off-ramps: when to stop, what to hand off, and to which skill.
+- Defines output format when the output will be consumed by the user or another skill.
+- Has a Completion Criterion that is binary — either met or not, no judgment required.
+- Adds value the model wouldn't produce on its own. If a smart model handles it correctly without the skill, the skill is noise.
+
+**A good skill avoids:**
+- Fuzzy completion: "when the work looks good" is not a criterion.
+- Missing guard conditions: if the skill assumes a plan exists, say so and name the fallback skill.
+- Generic advice that applies to all coding (those belong in CLAUDE.md, not a skill).
+- Describing the same trigger in both a model-invoked skill and a user-invoked router — double-firing wastes context.
+- Accumulating scope across versions. When a skill grows beyond one responsibility, split rather than expand.
