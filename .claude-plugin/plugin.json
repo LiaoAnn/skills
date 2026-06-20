@@ -1,0 +1,12 @@
+{
+  "name": "ann-skills",
+  "skills": [
+    "./skills/global/ask-me",
+    "./skills/global/study-repo",
+    "./skills/global/plan-change",
+    "./skills/global/implement-plan",
+    "./skills/global/diagnose-bug",
+    "./skills/global/review-change",
+    "./skills/global/open-pr"
+  ]
+}
