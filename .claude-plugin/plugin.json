@@ -1,14 +1,14 @@
 {
   "name": "ann-skills",
   "skills": [
-    "./skills/global/ask-me",
-    "./skills/global/study-repo",
-    "./skills/global/plan-change",
-    "./skills/global/implement-plan",
-    "./skills/global/diagnose-bug",
-    "./skills/global/review-change",
-    "./skills/global/open-pr",
-    "./skills/techniques/tdd",
-    "./skills/techniques/architecture"
+    "./skills/process/ask-me",
+    "./skills/process/study-repo",
+    "./skills/process/plan-change",
+    "./skills/process/implement-plan",
+    "./skills/process/diagnose-bug",
+    "./skills/process/review-change",
+    "./skills/process/open-pr",
+    "./skills/principles/tdd",
+    "./skills/principles/architecture"
   ]
 }

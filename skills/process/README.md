@@ -1,10 +1,12 @@
-# Global Skills
+# Process Skills
 
-**Process** skills — they encode *how to move through a task*: understand, plan, implement, diagnose, review, ship. Project-agnostic. They reference **practice** skills (`techniques/`, `domain/`) for *how to do the work well* at each step.
+**Process** skills encode *how to move through a task*: understand, plan, implement, diagnose, review, ship. They stay project-agnostic and orchestrate the work.
+
+When a process step needs reusable craft judgment, reference a **principles** skill such as `/tdd` or `/architecture`. When the work touches a specific framework, package, tool, or repo, reference the relevant **stacks** skill instead of inlining stack details.
 
 ## Skills Reference
 
-Skills split on one axis — who can invoke them.
+Process skills also split by invocation — who can reach them.
 
 **User-invoked** skills are reachable only when you type them. They act as entry points and orchestrators.
 

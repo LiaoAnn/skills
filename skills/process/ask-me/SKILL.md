@@ -1,6 +1,6 @@
 ---
 name: ask-me
-description: Router for my global coding-agent workflows. Type /ask-me when unsure which workflow fits the situation.
+description: Router for my process skills. Type /ask-me when unsure which workflow fits the situation.
 disable-model-invocation: true
 ---
 

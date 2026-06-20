@@ -1,8 +1,8 @@
-# Techniques
+# Principles
 
-**Practice** skills — they encode *how to do a kind of work well*, independent of any single repo or stack. Process skills in `global/` reference these at the relevant step (e.g. `/implement-plan` calls `/tdd`).
+**Principles** skills encode cross-cutting concepts, standards, and judgment for doing work well. They are independent of any single repo, framework, package, or tool.
 
-Cross-cutting craft lives here; practices tied to a specific stack or repo live in `domain/`.
+Process skills in `process/` reference these at the relevant step (e.g. `/implement-plan` calls `/tdd`). Stack-specific skills in `stacks/` should build on these principles, then add concrete APIs, conventions, and pitfalls for that stack.
 
 ## Skills Reference
 

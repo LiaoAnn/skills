@@ -12,13 +12,19 @@ Or manually copy the `skills/` directory into your agent's skills folder.
 
 ## Architecture
 
-Skills split on one axis: **process** (how to move through a task) vs **practice** (how to do the work well). Process skills reference practice skills at the relevant step.
+Skills split into three categories:
+
+- **process** — workflows and orchestration: how to move through a task.
+- **principles** — cross-cutting concepts and standards: how to judge whether work is good.
+- **stacks** — stack-, tool-, or repo-specific practices: how to apply principles in a concrete environment.
+
+Process skills reference principles when they need general craft judgment. Stack skills build on principles, then add the specific patterns, pitfalls, APIs, and conventions for a package, framework, tool, or repo.
 
 ```
 skills/
-  global/      ← process: study, plan, implement, diagnose, review, ship
-  techniques/  ← practice (cross-cutting craft): tdd, architecture
-  domain/      ← practice (stack/repo-specific): e.g. Effect TS, a given monorepo
+  process/     ← workflows: study, plan, implement, diagnose, review, ship
+  principles/  ← cross-cutting craft: tdd, architecture
+  stacks/      ← concrete stacks/tools/repos: e.g. frontend performance, Drizzle ORM, Effect TS
 ```
 
-**[global](./skills/global/README.md)** encodes the process and stays project-agnostic. **[techniques](./skills/techniques/README.md)** holds craft that applies anywhere. **[domain](./skills/domain/README.md)** holds practices bound to a specific stack or repo. A process skill like `/implement-plan` calls `/tdd`; `/review-change` checks boundaries against `/architecture`.
+**[process](./skills/process/README.md)** encodes task flows and stays project-agnostic. **[principles](./skills/principles/README.md)** holds reusable craft judgment such as TDD and architecture. **[stacks](./skills/stacks/README.md)** holds concrete guidance for specific packages, frameworks, tools, and repos. A process skill like `/implement-plan` calls `/tdd`; `/review-change` checks boundaries against `/architecture`; a future stack skill like `drizzle-orm` should apply those principles to Drizzle-specific APIs and pitfalls.

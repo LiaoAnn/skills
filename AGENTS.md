@@ -18,14 +18,14 @@ skills/
   plugin.json              ← lists all installable skills for skills.sh
 ```
 
-Skills split on one axis: **process** (how to move through a task) vs **practice** (how to do the work well). Process skills reference practice skills at the relevant step.
+Skills split into three categories:
+- `process` — workflow and orchestration skills, project-agnostic: study, plan, implement, diagnose, review, ship.
+- `principles` — cross-cutting concepts, standards, and judgment that apply across stacks: e.g. `tdd`, `architecture`.
+- `stacks` — concrete practices for a specific package, framework, tool, or repo: e.g. frontend performance, `drizzle-orm`, `effect-ts`, a given monorepo's conventions.
 
-Categories:
-- `global` — **process** skills, project-agnostic: study, plan, implement, diagnose, review, ship.
-- `techniques` — **practice** skills, cross-cutting craft that applies to any stack: e.g. `tdd`, `architecture`.
-- `domain` — **practice** skills bound to a specific stack or repo: e.g. `effect-ts`, a given monorepo's conventions.
+When adding a skill, place it by this axis: a workflow of steps → `process`; cross-cutting "what makes this good" judgment → `principles`; "how to do this well in stack/tool/repo Y" → `stacks`.
 
-When adding a skill, place it by this axis: a workflow of steps → `global`; cross-cutting "how to do X well" → `techniques`; "what to do/avoid in stack Y" → `domain`. A process skill should reference the practice skills its steps rely on, not inline their content.
+Process skills should reference principles when they need general craft judgment, not inline the principle content. Stack skills should be written from principles plus concrete stack knowledge: cite the relevant principle skill where useful, then add stack-specific APIs, patterns, pitfalls, and conventions.
 
 ## Adding a Skill
 
@@ -45,7 +45,7 @@ disable-model-invocation: true   # only present for user-invoked skills
 ---
 ```
 
-Every skill must have a **Completion Criterion** section.
+Every non-router skill must have a **Completion Criterion** section. Router skills may omit it, but must make the routing decision they produce clear.
 
 Skills that produce structured output must define their output format explicitly.
 
@@ -71,7 +71,7 @@ Rules:
 - Has a trigger the agent can reliably detect from the description alone (model-invoked), or a name the user will remember (user-invoked).
 - States explicit off-ramps: when to stop, what to hand off, and to which skill.
 - Defines output format when the output will be consumed by the user or another skill.
-- Has a Completion Criterion that is binary — either met or not, no judgment required.
+- For non-router skills, has a Completion Criterion that is binary — either met or not, no judgment required. For router skills, produces a clear routing decision.
 - Adds value the model wouldn't produce on its own. If a smart model handles it correctly without the skill, the skill is noise.
 
 **A good skill avoids:**
