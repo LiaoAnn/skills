@@ -9,7 +9,7 @@ Execute the agreed plan in small, verifiable steps.
 
 ## Preconditions
 
-Start from a plan. If the user has not provided one and the change is not trivial, run `/plan-change` first.
+Start from a plan. If the user has not provided one and the change is not trivial, run `/plan-it` first.
 
 Before editing, identify:
 

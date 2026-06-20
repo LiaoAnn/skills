@@ -77,7 +77,7 @@ Once the cause is clear, produce:
 - Risks.
 - Acceptance criteria.
 
-Then move to `/plan-change` for the actual code change.
+Then move to `/plan-it` for the actual code change.
 
 ## Completion Criterion
 

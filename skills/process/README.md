@@ -19,7 +19,7 @@ Process skills also split by invocation — who can reach them.
 **Model-invoked**
 
 - **[study-repo](./study-repo/SKILL.md)** — Understand a codebase or external package before acting. Separates facts, inferences, and unknowns.
-- **[plan-change](./plan-change/SKILL.md)** — Plan a code change before touching anything. Produces a structured plan with validation criteria. Stops early with a go/no-go for feasibility-only assessments.
+- **[plan-it](./plan-it/SKILL.md)** — Plan a code change before touching anything. Produces a structured plan with validation criteria. Stops early with a go/no-go for feasibility-only assessments.
 - **[implement-plan](./implement-plan/SKILL.md)** — Execute an agreed plan in vertical slices: implement → validate → commit → next slice. References `/tdd` for test-first discipline.
 - **[diagnose-bug](./diagnose-bug/SKILL.md)** — Diagnose before fixing. Builds a reproduction path, traces the code, generates ranked hypotheses, defines acceptance criteria.
 - **[review-change](./review-change/SKILL.md)** — Review a diff from a fresh reviewer perspective. Prefers a subagent or fresh context. Reports findings by severity.
@@ -28,13 +28,13 @@ Process skills also split by invocation — who can reach them.
 ## Flows
 
 **Change code**
-`/study-repo` → `/plan-change` → `/implement-plan` → `/review-change` → `/open-pr`
+`/study-repo` → `/plan-it` → `/implement-plan` → `/review-change` → `/open-pr`
 
 **Fix a bug**
-`/diagnose-bug` → `/plan-change` → `/implement-plan` → `/review-change`
+`/diagnose-bug` → `/plan-it` → `/implement-plan` → `/review-change`
 
 **Understand before acting**
-`/study-repo` → (if change needed) `/plan-change`
+`/study-repo` → (if change needed) `/plan-it`
 
 **Review only**
 `/review-change`

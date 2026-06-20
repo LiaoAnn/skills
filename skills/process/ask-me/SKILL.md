@@ -14,7 +14,7 @@ A **workflow** is a path through the skills. Most coding-agent work starts with 
 
 Use this route when the user wants to add, modify, or remove behavior.
 
-1. **`/plan-change`** — understand the goal, inspect the relevant code, identify affected modules, choose an approach, and define validation.
+1. **`/plan-it`** — understand the goal, inspect the relevant code, identify affected modules, choose an approach, and define validation.
 2. **`/implement-plan`** — make the agreed changes in small steps, run the appropriate checks, and keep fixing until the validation passes or a real blocker is found.
 3. **`/review-change`** — review the finished diff from a fresh reviewer context before calling the work done.
 4. **`/open-pr`** *(larger features)* — write a reviewer-friendly PR description and open the pull request.
@@ -25,14 +25,14 @@ Do not skip planning unless the user explicitly asks for a tiny direct edit.
 
 Use **`/study-repo`** when the user asks what a repo does, how a feature is implemented, where behavior lives, or whether the repo can be used in a certain way.
 
-If the inquiry turns into a code change, move to **`/plan-change`** after the answer is clear.
+If the inquiry turns into a code change, move to **`/plan-it`** after the answer is clear.
 
 ## Bug Flow: Symptom → Diagnosis → Fix
 
 Use this route when the user reports broken, failing, confusing, slow, or unexpected behavior.
 
 1. **`/diagnose-bug`** — restate the symptom, build or identify a reproduction path, trace the relevant code path, explain the likely root cause, and define acceptance criteria for the fix.
-2. **`/plan-change`** — plan the fix once the cause and validation path are clear.
+2. **`/plan-it`** — plan the fix once the cause and validation path are clear.
 3. **`/implement-plan`** — implement the fix and run the validation loop.
 4. **`/review-change`** — review the diff from a fresh context.
 

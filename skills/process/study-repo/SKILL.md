@@ -60,7 +60,7 @@ Return a concise answer with:
 - **How it works** — the important path through the repo.
 - **Code references** — files and symbols that support the answer.
 - **Caveats** — unsupported cases, unknowns, or assumptions.
-- **Next step** — if this should become a code change, recommend `/plan-change`.
+- **Next step** — if this should become a code change, recommend `/plan-it`.
 
 ## Completion Criterion
 

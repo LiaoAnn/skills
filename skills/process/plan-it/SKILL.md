@@ -1,9 +1,9 @@
 ---
-name: plan-change
+name: plan-it
 description: Plan a code change before implementation. Use when the user wants to add, modify, remove, or fix behavior and needs an approach, impact analysis, testing strategy, acceptance criteria, or implementation plan.
 ---
 
-# Plan Change
+# Plan It
 
 Plan before editing. The goal is to make the change small, justified, and verifiable.
 
