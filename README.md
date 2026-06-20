@@ -8,15 +8,17 @@ My personal workflow skills for Claude Code and other coding agents.
 npx skills@latest add liaoann/skills
 ```
 
-Or manually copy the `skills/global/` directory into your agent's skills folder.
+Or manually copy the `skills/` directory into your agent's skills folder.
 
 ## Architecture
 
+Skills split on one axis: **process** (how to move through a task) vs **practice** (how to do the work well). Process skills reference practice skills at the relevant step.
+
 ```
 skills/
-  global/     ← workflow skills that apply to any project or codebase
+  global/      ← process: study, plan, implement, diagnose, review, ship
+  techniques/  ← practice (cross-cutting craft): tdd, architecture
+  domain/      ← practice (stack/repo-specific): e.g. Effect TS, a given monorepo
 ```
 
-**Global skills** encode the process: how to study a repo, plan a change, implement it, diagnose a bug, review the result, and open a PR. They are project-agnostic and composable. See [skills/global](./skills/global/README.md) for the full reference.
-
-Future layers will add technique-specific skills (e.g. TDD, vertical slice) and domain knowledge rules (e.g. Effect TS, tree shaking).
+**[global](./skills/global/README.md)** encodes the process and stays project-agnostic. **[techniques](./skills/techniques/README.md)** holds craft that applies anywhere. **[domain](./skills/domain/README.md)** holds practices bound to a specific stack or repo. A process skill like `/implement-plan` calls `/tdd`; `/review-change` checks boundaries against `/architecture`.

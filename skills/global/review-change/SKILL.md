@@ -48,9 +48,9 @@ Prioritize:
 
 - Incorrect behavior or missed requirements.
 - Regressions in nearby flows.
-- Missing or weak tests.
+- Missing or weak tests — judge test quality by `/tdd` (behavior through public interfaces, survives refactors).
 - Broken error handling or edge cases.
-- Inconsistent architecture or project conventions.
+- Inconsistent architecture or project conventions — check boundaries against `/architecture`.
 - Validation gaps.
 
 Avoid style commentary that tooling will catch.

@@ -18,9 +18,14 @@ skills/
   plugin.json              ← lists all installable skills for skills.sh
 ```
 
-Current categories: `global` (project-agnostic workflow skills).
+Skills split on one axis: **process** (how to move through a task) vs **practice** (how to do the work well). Process skills reference practice skills at the relevant step.
 
-Future categories will include technique-specific skills (e.g. `tdd`) and domain knowledge skills (e.g. `effect-ts`, `tree-shaking`).
+Categories:
+- `global` — **process** skills, project-agnostic: study, plan, implement, diagnose, review, ship.
+- `techniques` — **practice** skills, cross-cutting craft that applies to any stack: e.g. `tdd`, `architecture`.
+- `domain` — **practice** skills bound to a specific stack or repo: e.g. `effect-ts`, a given monorepo's conventions.
+
+When adding a skill, place it by this axis: a workflow of steps → `global`; cross-cutting "how to do X well" → `techniques`; "what to do/avoid in stack Y" → `domain`. A process skill should reference the practice skills its steps rely on, not inline their content.
 
 ## Adding a Skill
 

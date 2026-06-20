@@ -7,6 +7,8 @@
     "./skills/global/implement-plan",
     "./skills/global/diagnose-bug",
     "./skills/global/review-change",
-    "./skills/global/open-pr"
+    "./skills/global/open-pr",
+    "./skills/techniques/tdd",
+    "./skills/techniques/architecture"
   ]
 }

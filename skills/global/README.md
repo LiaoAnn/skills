@@ -1,6 +1,6 @@
 # Global Skills
 
-Workflow skills that apply to any project or codebase. These encode the process — not the tech stack.
+**Process** skills — they encode *how to move through a task*: understand, plan, implement, diagnose, review, ship. Project-agnostic. They reference **practice** skills (`techniques/`, `domain/`) for *how to do the work well* at each step.
 
 ## Skills Reference
 
@@ -18,7 +18,7 @@ Skills split on one axis — who can invoke them.
 
 - **[study-repo](./study-repo/SKILL.md)** — Understand a codebase or external package before acting. Separates facts, inferences, and unknowns.
 - **[plan-change](./plan-change/SKILL.md)** — Plan a code change before touching anything. Produces a structured plan with validation criteria. Stops early with a go/no-go for feasibility-only assessments.
-- **[implement-plan](./implement-plan/SKILL.md)** — Execute an agreed plan in vertical slices: write test → implement → validate → commit → next slice.
+- **[implement-plan](./implement-plan/SKILL.md)** — Execute an agreed plan in vertical slices: implement → validate → commit → next slice. References `/tdd` for test-first discipline.
 - **[diagnose-bug](./diagnose-bug/SKILL.md)** — Diagnose before fixing. Builds a reproduction path, traces the code, generates ranked hypotheses, defines acceptance criteria.
 - **[review-change](./review-change/SKILL.md)** — Review a diff from a fresh reviewer perspective. Prefers a subagent or fresh context. Reports findings by severity.
 - **[open-pr](./open-pr/SKILL.md)** — Write a PR description and open the pull request. Falls back to a standard structure if no project template exists.

@@ -28,13 +28,13 @@ If the code contradicts the plan, stop and update the plan instead of forcing th
 
 ### 2. Change in Small Steps
 
-Work in vertical slices, not horizontal. Do not write all tests first, then all implementation. Each slice is:
+Work in vertical slices — one logical unit of behavior from the plan per slice:
 
 ```
-write test → implement → validate → commit → next slice
+implement slice → validate → commit → next slice
 ```
 
-One slice = one logical unit of behavior from the plan. After validation passes, commit before moving to the next slice. Do not accumulate changes across slices and commit at the end.
+When implementing test-first, follow `/tdd` for the red-green-refactor discipline. After validation passes, commit before moving to the next slice. Do not accumulate changes across slices and commit at the end.
 
 Make focused edits that map back to the plan. Avoid unrelated refactors and metadata churn.
 

@@ -35,7 +35,7 @@ When there are multiple plausible approaches, compare them by:
 
 - Blast radius.
 - Testability.
-- Fit with existing architecture.
+- Fit with existing architecture — see `/architecture` for boundary and dependency principles.
 - Reversibility.
 - Risk of hidden behavior changes.
 
