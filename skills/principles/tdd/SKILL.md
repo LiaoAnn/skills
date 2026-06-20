@@ -19,9 +19,9 @@ WRONG (horizontal):          RIGHT (vertical):
   GREEN: impl1, impl2, impl3   RED→GREEN: test2→impl2
 ```
 
-## Workflow
+## Red-Green Cycle
 
-1. **Plan** — confirm the public interface and which behaviors matter most with the user. Understand the domain's vocabulary and existing test patterns first so test names match the codebase. You can't test everything; focus on critical paths and complex logic.
+1. **Before the cycle** — confirm the public interface and which behaviors matter most with the user. Understand the domain's vocabulary and existing test patterns first so test names match the codebase. You can't test everything; focus on critical paths and complex logic.
 2. **Tracer bullet** — write ONE test for the first behavior (RED), then minimal code to pass (GREEN). Proves the path works end-to-end.
 3. **Incremental loop** — for each remaining behavior: write next test (RED) → minimal code (GREEN). One test at a time; don't anticipate future tests.
 4. **Refactor** — only while GREEN. See [refactoring.md](refactoring.md). Never refactor while RED.

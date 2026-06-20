@@ -44,6 +44,12 @@ Use **`/review-change`** when the work is done, there is a diff to inspect, or t
 
 Prefer reviewing against a fixed point such as `main`, a branch, a commit, or a supplied diff.
 
+## CI Failure Flow
+
+Use **`/ci-triage`** when CI, typecheck, lint, build, or tests fail and the user needs to know whether the current change caused it.
+
+Classify failures before fixing them: introduced by this change, pre-existing, infrastructure/environmental, flaky, or unknown. Apply only low-risk bounded fixes inside `/ci-triage`; use `/implement-plan` for non-mechanical code changes and `/diagnose-bug` for product behavior bugs.
+
 ## Context Hygiene
 
 Keep planning and implementation connected while the plan is still active. When reviewing, prefer a fresh context or subagent so the reviewer is not anchored by the implementer's reasoning.

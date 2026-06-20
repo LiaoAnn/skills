@@ -51,9 +51,10 @@ Prioritize:
 - Missing or weak tests — judge test quality by `/tdd` (behavior through public interfaces, survives refactors).
 - Broken error handling or edge cases.
 - Inconsistent architecture or project conventions — check boundaries against `/architecture`.
+- Maintainability risks — judge clarity, comments, error context, small local refactors, and algorithmic shape against `/engineering-quality`.
 - Validation gaps.
 
-Avoid style commentary that tooling will catch.
+Avoid style commentary that tooling will catch. If validation or CI is failing, distinguish failures caused by the diff from ambient or infrastructure failures; use `/ci-triage` when that classification needs its own pass.
 
 ### 5. Report Findings First
 

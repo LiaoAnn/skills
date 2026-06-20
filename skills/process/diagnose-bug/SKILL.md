@@ -1,6 +1,6 @@
 ---
 name: diagnose-bug
-description: Diagnose a reported bug before fixing it. Use when the user reports broken, failing, slow, surprising, or inconsistent behavior and wants root cause analysis, reproduction steps, fix strategy, or acceptance criteria.
+description: Diagnose a reported product, runtime, or performance bug before fixing it. Use when the user reports broken, slow, surprising, inconsistent, or user-visible behavior and wants root cause analysis, reproduction steps, fix strategy, or acceptance criteria. For failing CI, build, lint, typecheck, or test jobs, use ci-triage first unless the failure has already been classified as a product behavior bug.
 ---
 
 # Diagnose Bug

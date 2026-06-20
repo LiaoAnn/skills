@@ -1,6 +1,6 @@
 ---
 name: implement-plan
-description: Implement an agreed code-change plan. Use when a plan exists or the user asks the agent to execute planned work, edit code, run validation scripts, fix failures, and report the final state.
+description: Implement an agreed code-change plan. Use when a plan exists or the user asks the agent to execute planned work, edit code, run validation for that work, fix validation failures encountered during implementation, and report the final state.
 ---
 
 # Implement Plan

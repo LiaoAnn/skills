@@ -16,6 +16,8 @@ Identify the base branch (usually `main` or `master`) and the current branch. Re
 - All commits on the current branch since it diverged from the base.
 - The full diff against the base.
 
+If the diff is too large to review coherently, stop and propose a split before opening the PR. Prefer one behavior or reviewable unit per PR. Do not hide unrelated refactors inside a feature PR.
+
 ### 2. Find a Template
 
 Check for a PR template in this order:
@@ -66,6 +68,8 @@ Do not repeat the commit list verbatim. Synthesize intent.
 Use `gh pr create` with the written description. Set base branch explicitly.
 
 If the branch has not been pushed, push it first.
+
+Open as draft when the project convention prefers draft PRs, validation is incomplete, or the PR is AI-prepared for a human to mark ready. Otherwise follow the user's request and the repo's normal practice.
 
 Confirm the PR URL after creation.
 

@@ -9,7 +9,7 @@ Principles for keeping a codebase navigable as it grows. Apply against the proje
 
 ## Organize by Domain, Not by Layer
 
-Group code by the feature it serves, so everything for one capability lives together:
+Group code by the capability it serves, so one feature can be understood by exploring one area:
 
 ```
 features/
@@ -17,7 +17,7 @@ features/
   availability/  ← services, data access, UI, tests for availability
 ```
 
-Not by technical layer (`controllers/`, `services/`, `repositories/` at the top level), which scatters one feature across many directories and forces multi-place edits for a single change.
+Avoid top-level technical layers (`controllers/`, `services/`, `repositories/`) when they scatter one domain change across many directories. Local technical subfolders inside a feature are fine when they make that feature easier to navigate.
 
 ## Communicate Through Public APIs
 
@@ -35,13 +35,19 @@ Put domain-agnostic utilities (logging, auth, generic helpers) in a shared low-l
 
 ## Keep the Dependency Graph Acyclic
 
-Dependencies must flow one direction, lowest-level to highest:
+Dependencies should flow one direction, from lower-level shared code toward higher-level application entry points:
 
 ```
 shared utils → shared domain modules → features → transport/API → app entry
 ```
 
 Lower layers must not import higher ones. A utility that imports a feature, or two features that import each other, is a cycle — it causes build failures, type errors, and a structure that no longer reflects what depends on what. Break cycles by extracting the shared piece downward.
+
+## Keep Transport Thin
+
+HTTP handlers, RPC routers, CLI commands, queue consumers, and UI event handlers are delivery mechanisms. They should validate input, adapt it into application data, call the domain/application code, and adapt the result back out.
+
+Do not let a transport boundary become the place where business decisions, persistence details, or complex orchestration accumulate. If the same behavior would be needed from another transport, move it behind a domain-facing interface.
 
 ## Place Authorization on the Request Path
 
@@ -51,4 +57,4 @@ Put the authorization check on the path every request provably passes — the ha
 
 ## Completion Criterion
 
-The change respects existing boundaries: new files sit with the feature they serve, cross-module imports go through public entry points, no import introduces a cycle or points from a lower layer to a higher one, and any authorization check sits at the request boundary rather than in a bypassable wrapper. A single violation means it is not met.
+The change respects existing boundaries: new files sit with the capability they serve, cross-module imports go through public entry points, no import introduces a cycle or points from a lower layer to a higher one, transport code stays thin, and any authorization check sits on the protected request path rather than in a bypassable wrapper. A single violation means it is not met.
