@@ -40,6 +40,8 @@ Make focused edits that map back to the plan. Avoid unrelated refactors and meta
 
 Prefer existing project patterns over new abstractions. Add an abstraction only when it removes real complexity or matches a local convention.
 
+For established or large codebases, load only the principle matching the implementation decision: use `/agentic-change-governance` before making any design, ownership, convention, or public-contract change not already accepted in the plan; use `/codebase-stewardship` when choosing how the implementation should fit existing patterns; use `/reviewable-change` when splitting, limiting, or reporting the diff.
+
 ### 3. Validate Continuously
 
 Run the cheapest relevant checks early and often:
@@ -48,6 +50,8 @@ Run the cheapest relevant checks early and often:
 2. Typecheck or static checks.
 3. Focused tests near the change.
 4. Broader test suite or integration checks at the end when feasible.
+
+Use `/property-based-testing` when the behavior is best expressed as an invariant, law, round trip, migration transform, state-machine rule, permission rule, parser/serializer property, or broad input-space guarantee.
 
 If a command fails, inspect the failure, fix the cause, and rerun the relevant command. Repeat until it passes or a genuine blocker is identified.
 

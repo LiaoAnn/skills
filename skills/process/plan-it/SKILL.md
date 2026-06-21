@@ -26,6 +26,7 @@ Identify:
 - Nearby tests and validation commands.
 - Existing conventions for similar changes.
 - Likely affected files or modules.
+- System rules, ownership boundaries, public contracts, or local patterns the change must preserve.
 
 ### 3. Choose the Approach
 
@@ -36,6 +37,9 @@ When there are multiple plausible approaches, compare them by:
 - Blast radius.
 - Testability.
 - Fit with existing architecture — see `/architecture` for boundary and dependency principles.
+- Fit with existing codebase identity — see `/codebase-stewardship` for local patterns, vocabulary, and avoiding parallel systems.
+- Agent authority — see `/agentic-change-governance` before planning design, ownership, convention, or public-contract changes.
+- Contract impact — see `/contracts` when APIs, schemas, events, jobs, exports, config, or other cross-boundary interfaces are involved.
 - Reversibility.
 - Risk of hidden behavior changes.
 

@@ -30,6 +30,8 @@ WRONG (horizontal):          RIGHT (vertical):
 
 Tests verify behavior through public interfaces, not implementation details. A good test survives an internal refactor; a bad one breaks when behavior hasn't changed. See [tests.md](tests.md) for good/bad examples and [mocking.md](mocking.md) for where to mock.
 
+When behavior is better described by an invariant, law, round trip, broad input-space guarantee, parser/serializer property, migration transform, state-machine rule, or permission rule, use `/property-based-testing` for the test design and keep the red-green-refactor cycle here.
+
 ## Per-Cycle Checklist
 
 ```

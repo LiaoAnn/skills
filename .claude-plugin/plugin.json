@@ -11,6 +11,11 @@
     "./skills/process/open-pr",
     "./skills/principles/tdd",
     "./skills/principles/architecture",
-    "./skills/principles/engineering-quality"
+    "./skills/principles/engineering-quality",
+    "./skills/principles/agentic-change-governance",
+    "./skills/principles/codebase-stewardship",
+    "./skills/principles/contracts",
+    "./skills/principles/reviewable-change",
+    "./skills/principles/property-based-testing"
   ]
 }

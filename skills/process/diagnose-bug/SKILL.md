@@ -74,6 +74,7 @@ Once the cause is clear, produce:
 - Root cause.
 - Fix direction.
 - Regression test or validation path.
+- Contract, governance, or stewardship risk if the fix would change public behavior, system shape, ownership boundaries, or established patterns.
 - Risks.
 - Acceptance criteria.
 
