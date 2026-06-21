@@ -49,12 +49,22 @@ If the goal is feasibility assessment only, stop here. Report blast radius, risk
 
 ### 4. Define Validation
 
+For behavior changes, ask the user whether they want test-first implementation unless they already specified test-first, TDD, or post-implementation tests. Keep this to one direct question, and continue only after the answer when it materially changes the implementation order.
+
+Record the test-first decision in the plan:
+
+- `TDD: yes` means `/implement-plan` should follow `/tdd` and write the focused failing test before production edits.
+- `TDD: no` means tests may be added after or alongside implementation.
+- If the change is trivial, test-hostile, or validation-only, state why TDD is not recommended.
+
 Specify how the implementation will be checked:
 
 - Formatting, linting, typechecking, or static analysis.
 - Focused unit/integration/e2e tests.
 - Manual verification, if needed.
 - Regression checks for affected behavior.
+
+List the test behaviors as completely as practical before implementation. Cover observable user-facing behavior first, then important edge cases, regressions, error paths, permissions, data boundaries, state transitions, serialization or migration behavior, concurrency or ordering concerns, and any contract/API expectations that could break callers.
 
 If no good test seam exists, call that out as a risk instead of pretending validation is strong.
 
@@ -73,6 +83,10 @@ Use this format:
 
 ## Risks
 
+## Test-First Decision
+
+## Test Behavior Inventory
+
 ## Validation Plan
 
 ## Open Questions
@@ -86,6 +100,8 @@ The plan is complete when it answers:
 - Where it will change.
 - Why this approach fits the codebase.
 - How correctness will be verified.
+- Whether implementation should be test-first, with the user's preference recorded when relevant.
+- Which behaviors should be tested before or during implementation.
 - What risks or unknowns remain.
 
 After the plan is accepted, move to `/implement-plan`.

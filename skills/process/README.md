@@ -19,7 +19,7 @@ Process skills also split by invocation — who can reach them.
 **Model-invoked**
 
 - **[study-repo](./study-repo/SKILL.md)** — Understand a codebase or external package before acting. Separates facts, inferences, and unknowns.
-- **[plan-it](./plan-it/SKILL.md)** — Plan a code change before touching anything. Produces a structured plan with validation criteria. Stops early with a go/no-go for feasibility-only assessments.
+- **[plan-it](./plan-it/SKILL.md)** — Plan a code change before touching anything. Produces a structured plan with validation criteria, a test-first decision, and a test behavior inventory. Stops early with a go/no-go for feasibility-only assessments.
 - **[implement-plan](./implement-plan/SKILL.md)** — Execute an agreed plan in vertical slices: implement → validate → commit → next slice. References `/tdd` for test-first discipline.
 - **[diagnose-bug](./diagnose-bug/SKILL.md)** — Diagnose product/runtime bugs before fixing. Builds a reproduction path, traces the code, generates ranked hypotheses, defines acceptance criteria.
 - **[ci-triage](./ci-triage/SKILL.md)** — Classify failing CI/local validation checks, reproduce the cheapest reliable signal, apply safe bounded fixes, and hand off implementation or bug diagnosis when needed.
