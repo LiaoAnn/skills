@@ -5,102 +5,62 @@ description: Implement an agreed code-change plan. Use when a plan exists or the
 
 # Implement Plan
 
-Execute the agreed plan in small, verifiable steps.
+Execute the accepted plan in small, verifiable slices.
 
-## Preconditions
+## Hard Gates
 
-Start from a plan. If the user has not provided one and the change is not trivial, run `/plan-it` first.
-
-Before editing, identify:
-
-- The target behavior.
-- The files or modules likely to change.
-- The validation commands to run.
-- Any formal principle check required by the plan.
-- Any user constraints from the conversation.
+1. Start from an accepted plan. If no plan exists and the change is not trivial, run `/plan-it` first.
+2. Apply `/persistent-side-effects` before any file, directory, branch, staging, commit, deletion, move, overwrite, scratch, or notes artifact.
+3. Run required formal gates before product tests or production code.
+4. If the plan says `TDD: yes`, invoke `/tdd`; the first production edit must happen after a focused test has run RED for the expected reason.
+5. Keep every edit mapped to the accepted plan. Stop and update the plan if the code contradicts it.
+6. Preserve unrelated user work: do not revert, overwrite, stage, or commit changes outside the accepted plan.
 
 ## Process
 
 ### 1. Inspect Before Editing
 
-Read the relevant files and nearby tests. Confirm the plan still matches the code.
+Read relevant files and nearby tests. Confirm target behavior, likely files, validation commands, formal-check requirements, and user constraints.
 
-If the code contradicts the plan, stop and update the plan instead of forcing the implementation.
+If the plan no longer matches the code, stop and update the plan instead of forcing implementation.
 
-### 2. Run Required Principle Checks
+### 2. Run Formal Gates
 
-Case C — plan says `Formal principle check: not needed`: skip this step entirely.
+- `Formal principle check: not needed`: skip.
+- `Formal principle check: unavailable`: stop and ask for an explicit user decision before tests or production code.
+- `Formal principle check: required`: run the named checker first.
 
-Case A — plan says `Formal principle check: unavailable`, or plan says `required` but the checker cannot be located in the current checkout: stop and ask the user for an explicit decision before writing failing product tests or production code. Treat unavailable required tooling as a gate, not a warning.
+If a required checker is not identified, stop and update the plan. If a checker reports a conflict, stop and ask for a design decision. Do not weaken or bypass validation to proceed.
 
-Case B — plan says `Formal principle check: required` and the checker is present: run that check before writing failing product tests or production code.
+### 3. Implement Vertical Slices
 
-Use the checker, command, workflow, or stack-specific skill named in the plan. If the plan requires a formal check but does not identify what to run, stop and update the plan before continuing.
+Work one logical slice at a time:
 
-The first implementation slice becomes:
-
-```
-formalize proposed behavior/principle impact → run principle check → stop on conflict or continue to next step
-```
-
-If the check reports a conflict, stop and update the plan or ask for a design decision. Do not bypass, weaken, or delete principle checks to make implementation proceed.
-
-### 3. Change in Small Steps
-
-Work in vertical slices — one logical unit of behavior from the plan per slice:
-
-```
-implement slice → validate → commit → next slice
+```text
+prepare gate -> implement slice -> validate -> report result -> propose commit message -> wait for approval
 ```
 
-When implementing test-first, follow `/tdd` for the red-green-refactor discipline. After validation passes, commit before moving to the next slice. Do not accumulate changes across slices and commit at the end.
+For `TDD: yes`, invoke `/tdd` and follow its red-green-refactor cycle. Allowed before RED: reading files, baseline checks, and formal principle/spec edits required by the plan.
 
-Make focused edits that map back to the plan. Avoid unrelated refactors and metadata churn.
-
-Prefer existing project patterns over new abstractions. Add an abstraction only when it removes real complexity or matches a local convention.
-
-For established or large codebases, load only the principle matching the implementation decision: use `/agentic-change-governance` before making any design, ownership, convention, or public-contract change not already accepted in the plan; use `/codebase-stewardship` when choosing how the implementation should fit existing patterns; use `/reviewable-change` when splitting, limiting, or reporting the diff.
+Make focused edits that fit existing patterns. Use `/agentic-change-governance` for authority or scope questions, `/codebase-stewardship` for local pattern fit, and `/reviewable-change` when splitting or reporting the diff.
 
 ### 4. Validate Continuously
 
-Run the cheapest relevant checks early and often:
+Run the cheapest relevant checks early:
 
-1. Formatter or lint for touched files, if available.
+1. Formatter or lint for touched files.
 2. Typecheck or static checks.
 3. Focused tests near the change.
-4. Broader test suite or integration checks at the end when feasible.
+4. Broader tests at the end when feasible.
 
-Use `/property-based-testing` when the behavior is best expressed as an invariant, law, round trip, migration transform, state-machine rule, permission rule, parser/serializer property, or broad input-space guarantee.
+Use `/property-based-testing` when the behavior is best expressed as an invariant, round trip, state-machine rule, permission rule, parser/serializer property, migration transform, or broad input-space guarantee.
 
-If a command fails, inspect the failure, fix the cause, and rerun the relevant command. Repeat until it passes or a genuine blocker is identified.
+If a check fails, inspect, fix the cause, and rerun until it passes or a real blocker is identified.
 
-### 5. Keep the User's Work Safe
+### 5. Finish With Evidence
 
-Do not revert unrelated user changes. If the worktree contains changes outside the task, leave them alone.
-
-If existing changes affect the same files, understand them and work with them.
-
-### 6. Finish with Evidence
-
-Before declaring done, verify:
-
-- The requested behavior is implemented.
-- Any required formal principle check passed before implementation proceeded, or the user explicitly decided how to handle unavailable required tooling before implementation continued.
-- The planned validation has been run or explicitly skipped with a reason.
-- Any temporary debugging code has been removed.
-- Remaining risks are stated.
-
-## Output
-
-Report:
-
-- What changed.
-- Which validation commands ran and whether they passed.
-- Any commands that could not be run.
-- Remaining risks or follow-up work.
-
-Then recommend `/review-change` when a diff exists. For larger features, recommend `/open-pr` to prepare the pull request for review.
+Report what changed, validation results, commands that could not run, remaining risks, and the proposed commit message if a diff exists. Recommend `/review-change`; for larger features, recommend `/open-pr`.
 
 ## Completion Criterion
 
-Implementation is complete only when the code is changed, any required formal principle gate has passed or was handled by an explicit user decision, and the strongest practical validation has either passed or been blocked for a specific stated reason.
+Implementation is complete only when the requested behavior is implemented, required formal gates passed or were handled by explicit user decision, practical validation passed or is blocked for a stated reason, no temporary debugging code remains, and `/persistent-side-effects` has not been violated.

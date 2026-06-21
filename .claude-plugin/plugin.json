@@ -13,6 +13,7 @@
     "./skills/principles/architecture",
     "./skills/principles/engineering-quality",
     "./skills/principles/agentic-change-governance",
+    "./skills/principles/persistent-side-effects",
     "./skills/principles/codebase-stewardship",
     "./skills/principles/contracts",
     "./skills/principles/reviewable-change",
