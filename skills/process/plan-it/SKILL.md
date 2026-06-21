@@ -27,6 +27,7 @@ Identify:
 - Existing conventions for similar changes.
 - Likely affected files or modules.
 - System rules, ownership boundaries, public contracts, or local patterns the change must preserve.
+- Formal design or principle-check tooling explicitly tied to the affected area, such as proof models, design-rule checkers, or architecture conformance checks.
 
 ### 3. Choose the Approach
 
@@ -47,7 +48,22 @@ Do not over-design for hypothetical future requirements.
 
 If the goal is feasibility assessment only, stop here. Report blast radius, risks, and a go/no-go recommendation without producing a full plan.
 
-### 4. Define Validation
+### 4. Decide Formal Principle Checks
+
+If the affected area already has a formal design/principle checker, or the user explicitly requested a formal gate, include a formal-check decision before test planning.
+
+Record:
+
+- `Formal principle check: required` when an existing checker applies to the affected area or the user requested one.
+- `Formal principle check: unavailable` when a checker is required but no suitable existing checker can be located.
+- `Formal principle check: not needed` when no applicable checker is documented for the affected area and the user did not request one.
+- The exact existing checker, command, file, skill, or workflow to use when known.
+- What conflict or inconsistency would stop implementation.
+- Whether user approval is required before implementation may continue; this is mandatory when the required checker is unavailable.
+
+Do not invent a new formal verification framework during planning unless the user explicitly asked for that design work.
+
+### 5. Define Validation
 
 For behavior changes, ask the user whether they want test-first implementation unless they already specified test-first, TDD, or post-implementation tests. Keep this to one direct question, and continue only after the answer when it materially changes the implementation order.
 
@@ -68,7 +84,9 @@ List the test behaviors as completely as practical before implementation. Cover 
 
 If no good test seam exists, call that out as a risk instead of pretending validation is strong.
 
-### 5. Produce the Plan
+### 6. Produce the Plan
+
+If the current coding-agent harness provides a native plan, planning, or todo mode, use that native mode to deliver and track the plan. Fill the plan content with the sections below.
 
 Use this format:
 
@@ -82,6 +100,13 @@ Use this format:
 ## Affected Areas
 
 ## Risks
+
+## Formal Principle Check
+
+<!-- required / unavailable / not needed -->
+<!-- Checker: command, file, skill, or workflow to run -->
+<!-- Conflict condition: what would stop implementation -->
+<!-- User approval required: yes / no -->
 
 ## Test-First Decision
 
@@ -100,6 +125,7 @@ The plan is complete when it answers:
 - Where it will change.
 - Why this approach fits the codebase.
 - How correctness will be verified.
+- Whether a formal principle check is required, unavailable, or not needed; which checker should run before TDD when required; and whether unavailable tooling requires an explicit user decision before continuing.
 - Whether implementation should be test-first, with the user's preference recorded when relevant.
 - Which behaviors should be tested before or during implementation.
 - What risks or unknowns remain.

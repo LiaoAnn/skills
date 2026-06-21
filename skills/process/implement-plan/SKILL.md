@@ -16,6 +16,7 @@ Before editing, identify:
 - The target behavior.
 - The files or modules likely to change.
 - The validation commands to run.
+- Any formal principle check required by the plan.
 - Any user constraints from the conversation.
 
 ## Process
@@ -26,7 +27,25 @@ Read the relevant files and nearby tests. Confirm the plan still matches the cod
 
 If the code contradicts the plan, stop and update the plan instead of forcing the implementation.
 
-### 2. Change in Small Steps
+### 2. Run Required Principle Checks
+
+Case C — plan says `Formal principle check: not needed`: skip this step entirely.
+
+Case A — plan says `Formal principle check: unavailable`, or plan says `required` but the checker cannot be located in the current checkout: stop and ask the user for an explicit decision before writing failing product tests or production code. Treat unavailable required tooling as a gate, not a warning.
+
+Case B — plan says `Formal principle check: required` and the checker is present: run that check before writing failing product tests or production code.
+
+Use the checker, command, workflow, or stack-specific skill named in the plan. If the plan requires a formal check but does not identify what to run, stop and update the plan before continuing.
+
+The first implementation slice becomes:
+
+```
+formalize proposed behavior/principle impact → run principle check → stop on conflict or continue to next step
+```
+
+If the check reports a conflict, stop and update the plan or ask for a design decision. Do not bypass, weaken, or delete principle checks to make implementation proceed.
+
+### 3. Change in Small Steps
 
 Work in vertical slices — one logical unit of behavior from the plan per slice:
 
@@ -42,7 +61,7 @@ Prefer existing project patterns over new abstractions. Add an abstraction only 
 
 For established or large codebases, load only the principle matching the implementation decision: use `/agentic-change-governance` before making any design, ownership, convention, or public-contract change not already accepted in the plan; use `/codebase-stewardship` when choosing how the implementation should fit existing patterns; use `/reviewable-change` when splitting, limiting, or reporting the diff.
 
-### 3. Validate Continuously
+### 4. Validate Continuously
 
 Run the cheapest relevant checks early and often:
 
@@ -55,17 +74,18 @@ Use `/property-based-testing` when the behavior is best expressed as an invarian
 
 If a command fails, inspect the failure, fix the cause, and rerun the relevant command. Repeat until it passes or a genuine blocker is identified.
 
-### 4. Keep the User's Work Safe
+### 5. Keep the User's Work Safe
 
 Do not revert unrelated user changes. If the worktree contains changes outside the task, leave them alone.
 
 If existing changes affect the same files, understand them and work with them.
 
-### 5. Finish with Evidence
+### 6. Finish with Evidence
 
 Before declaring done, verify:
 
 - The requested behavior is implemented.
+- Any required formal principle check passed before implementation proceeded, or the user explicitly decided how to handle unavailable required tooling before implementation continued.
 - The planned validation has been run or explicitly skipped with a reason.
 - Any temporary debugging code has been removed.
 - Remaining risks are stated.
@@ -83,4 +103,4 @@ Then recommend `/review-change` when a diff exists. For larger features, recomme
 
 ## Completion Criterion
 
-Implementation is complete only when the code is changed and the strongest practical validation has either passed or been blocked for a specific stated reason.
+Implementation is complete only when the code is changed, any required formal principle gate has passed or was handled by an explicit user decision, and the strongest practical validation has either passed or been blocked for a specific stated reason.

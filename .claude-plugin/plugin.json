@@ -16,6 +16,7 @@
     "./skills/principles/codebase-stewardship",
     "./skills/principles/contracts",
     "./skills/principles/reviewable-change",
-    "./skills/principles/property-based-testing"
+    "./skills/principles/property-based-testing",
+    "./skills/stacks/lean4-principle-check"
   ]
 }

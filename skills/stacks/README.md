@@ -8,4 +8,4 @@ Process skills in `process/` reference these when the work touches the relevant 
 
 ## Skills Reference
 
-_None yet._ Add a skill here when the guidance is bound to a specific stack, package, tool, product domain, or repo rather than being cross-cutting craft (which belongs in `principles/`).
+- **[lean4-principle-check](./lean4-principle-check/SKILL.md)** — Use existing Lean 4 models or checks to validate whether a planned design conflicts with project principles before implementation.
