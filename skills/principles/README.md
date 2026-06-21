@@ -15,4 +15,4 @@ Process skills in `process/` reference these at the relevant step (e.g. `/implem
 - **[codebase-stewardship](./codebase-stewardship/SKILL.md)** — Codebase-coherence principles for fitting new work into existing patterns, naming, extension points, and domain vocabulary.
 - **[contracts](./contracts/SKILL.md)** — Contract-design principles for APIs, schemas, events, jobs, module exports, configuration, and other cross-boundary interfaces.
 - **[reviewable-change](./reviewable-change/SKILL.md)** — Diff hygiene principles for keeping behavior changes, refactors, renames, formatting, generated output, and tests separable.
-- **[property-based-testing](./property-based-testing/SKILL.md)** — Behavior-oriented testing principles using generated inputs, invariants, laws, and round trips.
+- **[property-based-testing](./property-based-testing/SKILL.md)** — Property-based testing discipline for using generated inputs to search for unknown counterexamples to stated behavioral properties.

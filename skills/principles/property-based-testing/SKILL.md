@@ -1,68 +1,54 @@
 ---
 name: property-based-testing
-description: Property-based testing principles for behavior-oriented validation with generated inputs, invariants, laws, and round trips. Use when testing parsers, serializers, validators, calculations, permissions, state machines, migrations, normalization, ordering, grouping, deduplication, or other logic with broad input spaces.
+description: Use when generated inputs can search for unknown counterexamples to a stated behavioral property, law, invariant, round trip, model comparison, or state transition rule. Common fits include parsers, serializers, validators, calculations, permissions, state machines, migrations, normalization, ordering, grouping, and deduplication, but do not use merely because code belongs to one of these domains.
 ---
 
 # Property-Based Testing
 
-Use generated examples to test behavior that should hold across many inputs.
+Use generated inputs to search for unknown counterexamples to behavior that should hold across many inputs.
 
-## Choose a Property, Not an Implementation Detail
+Example-based tests confirm known scenarios. Property-based tests search for unknown failures of a stated property.
+
+## Guard Condition
+
+Before recommending or writing a property-based test, state:
+
+1. The property that should hold.
+2. The generated input or action space.
+3. The unknown counterexample class this test may expose.
+4. The oracle: how the test knows the behavior is wrong.
+
+If any item is missing, use example-based tests instead.
+
+Do not invoke this skill merely because the code involves permissions, state machines, parsers, serializers, migrations, or another broad-input domain. Those domains are common fits only when a concrete property can be named:
+
+```
+WRONG: This touches permissions, so use property-based testing.
+RIGHT: For all resources and actions, a narrower role must not allow more than a broader role.
+```
+
+## Design the Property
 
 A property must describe externally observable behavior or a domain invariant.
 
-Good property shapes:
-
-- **Round trip**: decoding an encoded value returns the original valid value.
-- **Idempotence**: normalizing an already normalized value changes nothing.
-- **Commutativity**: order does not matter when the domain says it should not.
-- **Conservation**: totals, counts, or identities are preserved by a transformation.
-- **Monotonicity**: increasing an input cannot decrease an output when the domain requires it.
-- **Subset or permission law**: a stricter role cannot do more than a broader role.
-- **Oracle comparison**: a simple trusted implementation agrees with the optimized implementation.
+Good property shapes: round trip, idempotence, commutativity, conservation, monotonicity, subset or permission law, oracle comparison, state invariant, model comparison.
 
 Bad properties mirror the implementation, assert private calls, or only restate the code's control flow.
 
-## Bound the Input Space
+See [oracles.md](oracles.md) for oracle types, generator guidance, and counterexample practices. See [examples.md](examples.md) for good and bad property examples.
 
-Generated data must be valid for the property being tested.
+## Implement Through Public Behavior
 
-Define:
+Property-based tests should exercise the same public interface an example test would use. Name the property in the test name or assertion message. Build generators from domain concepts, not raw random blobs. Assert with the chosen oracle. Configure deterministic replay if the framework requires it.
 
-- Valid domain ranges.
-- Required relationships between fields.
-- Edge cases that should be generated often.
-- Invalid inputs when testing rejection behavior.
-- Shrinking behavior if the framework supports it.
-
-Avoid generators so broad that most generated cases are meaningless, discarded, or impossible in production.
-
-## Keep Counterexamples Actionable
-
-When a property fails, the failure should tell the maintainer what behavior was violated.
-
-Prefer:
-
-- Small generators with named domain concepts.
-- Deterministic seeds in CI output.
-- Assertions that name the invariant.
-- Minimal fixtures only after the property exposes a real example.
-
-Add the minimized counterexample as a focused regression test when it documents an important bug.
+Do not assert private calls, internal branches, or incidental implementation structure.
 
 ## Combine With Example Tests
 
 Property-based tests do not replace example tests.
 
-Use example tests for:
-
-- Canonical business cases.
-- Boundary examples that explain the domain.
-- Regression cases from real bugs.
-- Error messages and user-facing output.
-
-Use property-based tests for broad behavioral laws where hand-picked examples are too narrow.
+Use example tests for canonical business cases, boundary examples, regression cases from real bugs, and error messages and user-facing output. Use property-based tests for broad behavioral laws where hand-picked examples are too narrow.
 
 ## Completion Criterion
 
-The property describes observable behavior or a domain invariant, generators produce meaningful valid or intentionally invalid inputs, failures produce actionable counterexamples, deterministic reproduction is available, and example tests still cover canonical cases and user-facing details.
+The skill is complete only when the test design states the property, generated input or action space, unknown counterexample class, and oracle; generators produce meaningful valid or intentionally invalid inputs; failures produce actionable counterexamples reproducible via deterministic seed or persisted counterexample; and example tests still cover canonical cases, regressions, exact messages, and user-facing details.
