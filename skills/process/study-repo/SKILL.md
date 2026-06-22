@@ -1,6 +1,6 @@
 ---
 name: study-repo
-description: Study a repository or code path to answer how it works, what it does, how a feature is implemented, or whether the user can use it in a specific way. Also use to investigate an external package's source code to understand its behavior, limitations, or bug causes. Use for repo understanding before planning or coding.
+description: Use for repo/package questions, feature tracing, usage checks, and dependency uncertainty about behavior, contracts, limits, versions, or bugs. Verify package claims with primary sources before answering or coding.
 ---
 
 # Study Repo
@@ -16,6 +16,7 @@ Identify which kind of answer the user needs:
 - **System overview** — what the repo does and how it is organized.
 - **Feature trace** — how a specific behavior is implemented.
 - **Usage check** — whether the user can use an API, command, package, component, or pattern in a certain way.
+- **External package behavior** — how a dependency's documented contract, implementation, versions, or known limitations actually work.
 - **Change readiness** — what must be understood before planning a change.
 
 State the classification briefly.
@@ -28,8 +29,16 @@ Read the smallest set of primary sources that can answer the question:
 2. Entry points, routes, commands, public exports, or tests related to the question.
 3. Definitions and call sites for the relevant functions, types, components, or modules.
 4. Existing tests or examples that show intended behavior.
+5. For external packages, official documentation, release notes, source code, tests, examples, and type definitions for the installed or requested version.
 
 Prefer semantic navigation and fast search. Treat docs as helpful, but verify behavior against code when possible.
+
+When suitable tools are available, use them for package verification:
+
+- Use an official documentation source to check documented APIs, configuration, and versioned behavior; for example, Context7 when available.
+- Use source search or package source to inspect implementation, tests, examples, and type definitions; for example, Octocode or GitHub source search when available.
+- Prefer the installed package version when the local project pins one; otherwise state which version or branch was inspected.
+- If docs and source disagree, report the conflict instead of smoothing it over.
 
 ### 3. Trace the Path
 
@@ -67,6 +76,6 @@ Return a concise answer with:
 The study is complete when the user can tell:
 
 - Where the relevant behavior lives.
-- How the main flow works.
+- How the main flow, API contract, or package behavior works.
 - What evidence supports the answer.
 - What remains uncertain, if anything.
