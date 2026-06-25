@@ -48,7 +48,7 @@ Prioritize:
 
 - Incorrect behavior or missed requirements.
 - Regressions in nearby flows.
-- Missing or weak tests — judge test quality by `/tdd` (behavior through public interfaces, survives refactors).
+- Missing or weak tests — judge test quality by `/tdd` (behavior through public interfaces, survives refactors). When the plan, task brief, or diff indicates TDD was used, also audit behavioral coverage: for each targeted behavior exercised through the public interface introduced or changed by the diff, verify tests exist for the expected success path, and where applicable, expected failure/error path, edge cases, and boundary conditions. If any behaviors lack coverage, list them explicitly as findings; absence of gaps is a passing result.
 - Broken error handling or edge cases.
 - Validation gaps.
 
