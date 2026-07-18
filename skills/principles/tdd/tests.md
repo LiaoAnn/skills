@@ -51,3 +51,28 @@ test("createUser makes user retrievable", async () => {
   expect(retrieved.name).toBe("Alice");
 });
 ```
+
+**Declaration tests**: restate a shape instead of exercising a decision. No plausible bug flips them red — changing the declaration changes the test in lockstep. See [Is This Test Worth Writing](SKILL.md#is-this-test-worth-writing).
+
+```typescript
+// BAD: restates the schema — a tautology, kills no mutant
+const User = Schema.Struct({ name: Schema.String, age: Schema.Number });
+test("User schema has a name field of type string", () => {
+  expect(User.fields.name).toBeDefined();
+});
+
+// GOOD: tests behavior at the schema boundary — decode rejects bad input
+test("decoding rejects a negative age", () => {
+  const result = Schema.decodeUnknownEither(User)({ name: "Alice", age: -1 });
+  expect(Either.isLeft(result)).toBe(true);
+});
+
+// GOOD: a transform round-trips
+test("encode then decode preserves the date", () => {
+  const iso = "2026-01-02T00:00:00.000Z";
+  const decoded = Schema.decodeSync(DateFromString)(iso);
+  expect(Schema.encodeSync(DateFromString)(decoded)).toBe(iso);
+});
+```
+
+If a schema is a plain passthrough with no refinement or transform, there is no decision to catch — do not write a test for it.
