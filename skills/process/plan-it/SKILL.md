@@ -7,19 +7,22 @@ description: Plan a code change before implementation. Use when the user wants t
 
 Plan before editing. Produce the smallest justified, verifiable plan that fits the current system.
 
+A plan describes the goal and the load-bearing decisions that reach it — not the procedure to type it out. Decide the outcome, the interfaces and boundaries involved, and how correctness is verified; leave exact code, edit ordering, and naming to `/implement-plan`. Test: if a detail could change during implementation without invalidating the plan, it does not belong in the plan.
+
 ## Hard Gates
 
 1. Inspect before planning: read `CLAUDE.md` and `CONTEXT.md` if present, then inspect relevant code, tests, docs, and configuration.
 2. Use native planning: call the harness plan-mode tool if available, such as `EnterPlanMode`. If only a todo/plan tracker exists, use it. If neither exists, state that before writing a Markdown plan.
 3. Do not implement. Planning must not edit product files, create artifacts, or run implementation commands.
-4. Apply `/persistent-side-effects`: planning creates no files, directories, branches, commits, staged changes, or scratch artifacts unless the user explicitly approved them.
-5. Record both the formal-check decision and the TDD decision.
+4. Describe decisions, not procedure. State what changes, where, why it fits, and how it is verified. Do not write production code, pseudo-code, or a step-by-step edit list — those are `/implement-plan`'s output.
+5. Apply `/persistent-side-effects`: planning creates no files, directories, branches, commits, staged changes, or scratch artifacts unless the user explicitly approved them.
+6. Record both the formal-check decision and the TDD decision.
 
 ## Planning Steps
 
 1. Restate the goal in user-facing behavior terms.
-2. Summarize current behavior, nearby tests, affected public interfaces, existing patterns, and likely touched files.
-3. Choose the smallest approach that fits the codebase. Compare alternatives only when there are real options.
+2. Summarize current behavior, nearby tests, affected public interfaces, existing patterns, and the blast radius (which modules or contracts are in scope) — not a file-by-file edit list.
+3. Choose the smallest approach that fits the codebase, described at the level of decisions and boundaries: which interface, which pattern, what stays out of scope. Stop short of how to write it. Compare alternatives only when there are real options.
    - If the goal is feasibility assessment only, stop here. Report blast radius, risks, and a go/no-go; no full plan is needed.
 4. Decide the formal principle check:
    - `required` when an existing checker applies or the user requested one.
@@ -41,7 +44,11 @@ Plan before editing. Produce the smallest justified, verifiable plan that fits t
 
 ## Proposed Approach
 
+<!-- The decision and why it fits: interface, pattern, boundaries. No code, pseudo-code, or edit steps. -->
+
 ## Affected Areas
+
+<!-- Modules, contracts, and interfaces in scope — the blast radius, not a file-by-file edit list. -->
 
 ## Risks
 
