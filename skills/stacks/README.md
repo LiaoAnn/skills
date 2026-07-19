@@ -9,3 +9,4 @@ Process skills in `process/` reference these when the work touches the relevant 
 ## Skills Reference
 
 - **[lean4-principle-check](./lean4-principle-check/SKILL.md)** — Use existing Lean 4 models or checks to validate whether a planned design conflicts with project principles before implementation.
+- **[drizzle-orm](./drizzle-orm/SKILL.md)** — Driver-agnostic guidance for using Drizzle ORM: generated migrations, typed JSON columns, timestamp automation, and testing Drizzle-backed code with Vitest (client-level resets, real migrations via first-party tooling, no schema-only tests).

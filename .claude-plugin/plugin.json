@@ -18,6 +18,7 @@
     "./skills/principles/contracts",
     "./skills/principles/reviewable-change",
     "./skills/principles/property-based-testing",
-    "./skills/stacks/lean4-principle-check"
+    "./skills/stacks/lean4-principle-check",
+    "./skills/stacks/drizzle-orm"
   ]
 }
