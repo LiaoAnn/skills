@@ -19,6 +19,7 @@
     "./skills/principles/reviewable-change",
     "./skills/principles/property-based-testing",
     "./skills/stacks/lean4-principle-check",
+    "./skills/stacks/codex-session-continuity",
     "./skills/stacks/drizzle-orm"
   ]
 }
