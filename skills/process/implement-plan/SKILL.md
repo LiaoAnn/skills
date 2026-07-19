@@ -34,11 +34,19 @@ If a required checker is not identified, stop and update the plan. If a checker 
 
 ### 3. Implement Vertical Slices
 
-Work one logical slice at a time:
+Work one logical slice at a time, and carry through every slice in the plan without pausing for approval between them:
 
 ```text
-prepare gate -> implement slice -> validate -> report result -> propose commit message -> wait for approval
+prepare gate -> implement slice -> validate -> self-review against the plan -> report progress -> next slice
 ```
+
+Self-review is the agent's own check that the slice matches the plan and validation passed — not a request for user confirmation. Report progress is a brief non-blocking note of what the slice did and its validation result; it is informational, not a checkpoint. Do not stop after a passing slice to ask whether to continue; proceed to the next slice.
+
+Stop mid-run only for a genuine gate:
+- A validation failure or blocker that cannot be resolved autonomously.
+- Code that contradicts the plan (per Hard Gate 5, stop and update the plan).
+- A required formal-check conflict (per step 2).
+- A persistent side effect that `/persistent-side-effects` requires user approval for.
 
 For `TDD: yes`, invoke `/tdd` and follow its red-green-refactor cycle. Allowed before RED: reading files, baseline checks, and formal principle/spec edits required by the plan.
 
