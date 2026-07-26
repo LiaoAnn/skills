@@ -31,9 +31,9 @@ A plan describes the goal and the load-bearing decisions that reach it — not t
    - Note the exact checker command and whether user approval is required before continuing.
 5. Decide validation:
    - Ask one direct TDD question for behavior changes unless the user already specified TDD, test-first, or post-implementation tests.
-   - `TDD: yes` means `/implement-plan` must invoke `/tdd`; first production edit happens only after an expected RED test.
+   - `TDD: yes` means `/implement-plan` must invoke `/tdd`; for slices that change behavior, the first production edit happens only after an expected RED test. Slices that `/tdd`'s test-necessity gate exempts are not owed a RED — that gate decides, not the category of file being edited.
    - `TDD: no` means tests may be added after or alongside implementation.
-6. List the observable behaviors to test. Prefer user-visible behavior, edge cases, error paths, permissions, state transitions, serialization, concurrency, and public contract expectations.
+6. List the observable behaviors to test. Prefer user-visible behavior, edge cases, error paths, permissions, state transitions, serialization, concurrency, and public contract expectations. List only behavior, and only once. A schema, type, migration, or configuration change earns an entry when a test could exercise it *and* no other entry or existing mechanism already covers the same change — prefer the caller-level behavior over the declaration-level one; `/tdd`'s gate is the authority. An empty inventory is a valid answer for a change that adds no decision.
 
 ## Plan Format
 
@@ -62,6 +62,8 @@ A plan describes the goal and the load-bearing decisions that reach it — not t
 ## Test-First Decision
 
 ## Test Behavior Inventory
+
+<!-- Observable behaviors only; may be empty. Prefer the caller-level entry: no entry for a rule another entry already covers -->
 
 ## Validation Plan
 

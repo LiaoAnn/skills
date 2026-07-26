@@ -8,7 +8,7 @@ Process skills in `process/` reference these at the relevant step (e.g. `/implem
 
 **Model-invoked**
 
-- **[tdd](./tdd/SKILL.md)** — Red-green-refactor in vertical slices: one test, one implementation, repeat. Test through public interfaces. Includes test quality, mocking, and refactor guidance.
+- **[tdd](./tdd/SKILL.md)** — Red-green-refactor in vertical slices: one test, one implementation, repeat. Test through public interfaces. Includes test quality, mocking, refactor guidance, and a gate for rejecting tests that restate a declaration instead of evaluating it.
 - **[architecture](./architecture/SKILL.md)** — Module-boundary and dependency-hygiene principles: organize by domain, communicate through public APIs, keep the dependency graph acyclic, keep transport thin, authorize at the request boundary.
 - **[engineering-quality](./engineering-quality/SKILL.md)** — Maintainable-code principles for decisions about clarity, comments, error context, small local refactors, and algorithmic shape.
 - **[agentic-change-governance](./agentic-change-governance/SKILL.md)** — Agent authority and scope-control principles for deciding whether a change is permitted by the user, plan, and system rules.

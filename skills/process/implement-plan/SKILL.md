@@ -12,7 +12,7 @@ Execute the accepted plan in small, verifiable slices.
 1. Start from an accepted plan. If no plan exists and the change is not trivial, run `/plan-it` first.
 2. Apply `/persistent-side-effects` before any file, directory, branch, staging, commit, deletion, move, overwrite, scratch, or notes artifact.
 3. Run required formal gates before product tests or production code.
-4. If the plan says `TDD: yes`, invoke `/tdd`; the first production edit must happen after a focused test has run RED for the expected reason.
+4. If the plan says `TDD: yes`, invoke `/tdd`; for slices that change behavior, the first production edit must happen after a focused test has run RED for the expected reason. Slices `/tdd`'s test-necessity gate exempts are not owed a RED (see *Implement Vertical Slices*).
 5. Keep every edit mapped to the accepted plan. Stop and update the plan if the code contradicts it.
 6. Preserve unrelated user work: do not revert, overwrite, stage, or commit changes outside the accepted plan.
 
@@ -48,7 +48,9 @@ Stop mid-run only for a genuine gate:
 - A required formal-check conflict (per step 2).
 - A persistent side effect that `/persistent-side-effects` requires user approval for.
 
-For `TDD: yes`, invoke `/tdd` and follow its red-green-refactor cycle. Allowed before RED: reading files, baseline checks, and formal principle/spec edits required by the plan.
+For `TDD: yes`, invoke `/tdd` and follow its red-green-refactor cycle.
+
+`TDD: yes` applies to the slices that change behavior. It does not mean every slice opens with a RED. Allowed before RED: reading files, baseline checks, and formal principle/spec edits required by the plan. Separately, edits that `/tdd`'s test-necessity gate exempts are owed no RED at all — that gate, not a category of file, decides which. Never manufacture a test to justify starting a slice; implement it, and carry the exemption into the final report per step 5.
 
 Make focused edits that fit existing patterns. Use `/agentic-change-governance` for authority or scope questions, `/codebase-stewardship` for local pattern fit, and `/reviewable-change` when splitting or reporting the diff.
 
@@ -67,7 +69,7 @@ If a check fails, inspect, fix the cause, and rerun until it passes or a real bl
 
 ### 5. Finish With Evidence
 
-Report what changed, validation results, commands that could not run, remaining risks, and the proposed commit message if a diff exists. Recommend `/review-change`; for larger features, recommend `/open-pr`.
+Report what changed, validation results, commands that could not run, remaining risks, any slice shipped without a test under `/tdd`'s gate together with what owns its concern instead — another test, a project mechanism, or nothing, and "nothing" is itself worth reporting — and the proposed commit message if a diff exists. Recommend `/review-change`; for larger features, recommend `/open-pr`.
 
 ## Completion Criterion
 

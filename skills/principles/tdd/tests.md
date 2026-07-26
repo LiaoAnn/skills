@@ -76,3 +76,24 @@ test("encode then decode preserves the date", () => {
 ```
 
 If a schema is a plain passthrough with no refinement or transform, there is no decision to catch — do not write a test for it.
+
+The same trap dressed up as behavior — a database constraint tested directly instead of through the code that relies on it:
+
+```typescript
+// BAD: the test below subsumes it. Drop the index and the upsert's conflict
+// clause has nothing to match, so the behavior test fails on the same change —
+// this one buys nothing. (Note what does NOT justify skipping it: a CI drift
+// check compares schema.ts to its generated output, so it never sees an index
+// missing at runtime.)
+test("email column is unique", async () => {
+  await db.insert(users).values({ email: "a@example.com" });
+  await expect(db.insert(users).values({ email: "a@example.com" })).rejects.toThrow();
+});
+
+// GOOD: tests the application behavior that depends on that index
+test("registering an existing email updates the profile instead of duplicating", async () => {
+  await registerUser({ email: "a@example.com", name: "Alice" });
+  await registerUser({ email: "a@example.com", name: "Alicia" });
+  expect(await listUsers()).toEqual([expect.objectContaining({ name: "Alicia" })]);
+});
+```

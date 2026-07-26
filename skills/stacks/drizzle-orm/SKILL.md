@@ -74,13 +74,19 @@ This is correct — keep it. Build the test database by running the actual migra
 
 Do not replace first-party migration application with ad-hoc schema creation.
 
+### Atomic multi-write: `transaction` vs `batch`
+
+`db.transaction()` works on the Node drivers. On D1 use `db.batch()` — D1 has no interactive transactions, and `db.transaction()` there is not a compile error, it throws at runtime. A batch runs its statements in a single all-or-nothing transaction.
+
 ### Don't test the schema itself
 
-**Symptom:** under a TDD workflow, the agent writes tests asserting "column X exists", "table has these fields", or that Drizzle maps a row the way Drizzle documents.
+**Symptom:** under a TDD workflow, the agent writes tests asserting "column X exists" or that Drizzle maps a row the way Drizzle documents — often defended as behavior: the `unique`/foreign key/cascade constraint is a business rule, the migration must apply, `schema.ts` must not drift from the migration.
 
-**Why wrong:** the schema is declarative configuration, not behavior. Asserting the column exists tests the framework and restates the schema. This is exactly what the [[tdd]] skill's test-necessity gate rejects — no behavior is being driven out.
+**Why wrong:** such a test restates the schema — a declaration edit rewrites it in lockstep, so it can never catch a bug. Tests that *exercise* a schema rule are a different case, handled below. [[tdd]] owns the distinction, and its `verification-placement.md` routes the rest to the mechanism that owns each concern.
 
-**Do instead:** test behavior *built on* the schema — a query function, a validation rule, a migration's data effect, a constraint that must reject bad input. Let the type checker and `drizzle-kit` guard schema correctness.
+**Do instead:** prefer the caller-level test — the conflict branch of an `onConflictDoUpdate` (`onDuplicateKeyUpdate` on MySQL) upsert, not the unique index itself; it fails on the same changes and survives a switch of enforcement mechanism. Test a schema rule directly only when no caller-level test reaches it: a `CHECK` expression, a partial unique index, a row-security policy, or a `$onUpdate` timestamp — the last because Drizzle applies it client-side, so no engine enforces it and a raw update bypasses it entirely.
+
+Drizzle's own mechanisms cover the rest. The type checker owns declared shape, but not what is actually in the row: `.$type<T>()` is an unchecked cast. For drift, a CI step asserting `drizzle-kit generate` leaves `drizzle/` unchanged. Two limits of that check: `drizzle-kit check` is *not* part of it — it validates generated migrations against each other for collisions and cross-branch races, never against `schema.ts` — and because `generate` diffs the snapshot in `drizzle/meta/`, a hand-edited `.sql` file is outside its coverage and needs review instead.
 
 ## Completion Criterion
 
@@ -90,4 +96,4 @@ The change satisfies all of:
 - Existing timestamp automation is preserved, not replaced.
 - No test runs schema-shaped SQL through the raw driver; resets go through the Drizzle client, and resets duplicating the harness's storage isolation are removed.
 - Tests apply the real migration chain via first-party tooling.
-- No test asserts schema structure for its own sake; schema-dependent tests assert behavior.
+- No test restates the schema — asserting a column, table, or index exists, or that Drizzle maps a row as documented. Tests that evaluate a schema rule against data are fine.
