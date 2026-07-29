@@ -48,7 +48,7 @@ Prioritize:
 
 - Incorrect behavior or missed requirements.
 - Regressions in nearby flows.
-- Missing or weak tests — judge test quality by `/tdd` (behavior through public interfaces, survives refactors). When the plan, task brief, or diff indicates TDD was used, also audit behavioral coverage: for each targeted behavior exercised through the public interface introduced or changed by the diff, verify tests exist for the expected success path, and where applicable, expected failure/error path, edge cases, and boundary conditions. If any behaviors lack coverage, list them explicitly as findings; absence of gaps is a passing result.
+- Missing or weak tests — judge test quality by `/tdd` (behavior through public interfaces, survives refactors). When the plan, task brief, or diff indicates TDD was used, also audit behavioral coverage: for each targeted behavior exercised through the public interface introduced or changed by the diff, verify tests exist for the expected success path, and where applicable, expected failure/error path, edge cases, and boundary conditions. If any behaviors lack coverage, list them explicitly as findings; absence of gaps is a passing result. Being a declaration is not itself an exemption — per `/tdd`, what matters is whether a test could only restate it. Where a test could exercise it (a `CHECK` expression, a refinement, an ORM-maintained value), the missing test is a gap unless another test in the diff already fails on the same change, or a project mechanism does; check that mechanism exists in CI or project config rather than assuming it, and report its absence as the finding when it does not.
 - Broken error handling or edge cases.
 - Validation gaps.
 
