@@ -8,4 +8,5 @@ Process skills in `process/` reference these when the work touches the relevant 
 
 ## Skills Reference
 
+- **[devcontainer-exec](./devcontainer-exec/SKILL.md)** — Resolve a project's Dev Container and route every build, test, lint, and run command through `docker exec` while editing files on the host.
 - **[lean4-principle-check](./lean4-principle-check/SKILL.md)** — Use existing Lean 4 models or checks to validate whether a planned design conflicts with project principles before implementation.
