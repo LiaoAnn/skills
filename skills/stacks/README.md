@@ -10,5 +10,5 @@ Process skills in `process/` reference these when the work touches the relevant 
 
 - **[devcontainer-exec](./devcontainer-exec/SKILL.md)** — Resolve a project's Dev Container and route every build, test, lint, and run command through `docker exec` while editing files on the host.
 - **[lean4-principle-check](./lean4-principle-check/SKILL.md)** — Use existing Lean 4 models or checks to validate whether a planned design conflicts with project principles before implementation.
-- **[codex-session-continuity](./codex-session-continuity/SKILL.md)** — When the running model is Codex/GPT-5, keep the session looping at each phase boundary by calling the ask-user tool with a decision menu instead of ending the turn.
 - **[drizzle-orm](./drizzle-orm/SKILL.md)** — Driver-agnostic guidance for using Drizzle ORM: generated migrations, typed JSON columns, timestamp automation, and testing Drizzle-backed code with Vitest (client-level resets, real migrations via first-party tooling, no schema-only tests).
+- **[knip](./knip/SKILL.md)** — Configuring Knip: `.jsonc` config with commented ignores, reporting exported types used only inside their own file, and the shadcn/ui + CSS-imported-dependency (`tailwindcss`, `tw-animate-css`) exceptions.
