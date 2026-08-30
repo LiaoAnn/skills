@@ -69,7 +69,7 @@ If a check fails, inspect, fix the cause, and rerun until it passes or a real bl
 
 ### 5. Finish With Evidence
 
-Report what changed, validation results, commands that could not run, remaining risks, any slice shipped without a test under `/tdd`'s gate together with what owns its concern instead — another test, a project mechanism, or nothing, and "nothing" is itself worth reporting — and the proposed commit message if a diff exists. Recommend `/review-change`; for larger features, recommend `/open-pr`.
+Report what changed, validation results, commands that could not run, remaining risks, any slice shipped without a test under `/tdd`'s gate together with what owns its concern instead — another test, a project mechanism, or nothing, and "nothing" is itself worth reporting — and the proposed commit message if a diff exists. Recommend `/review-change`.
 
 ## Completion Criterion
 

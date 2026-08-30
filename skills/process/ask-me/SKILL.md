@@ -17,7 +17,6 @@ Use this route when the user wants to add, modify, or remove behavior.
 1. **`/plan-it`** — understand the goal, inspect the relevant code, identify affected modules, choose an approach, and define validation.
 2. **`/implement-plan`** — make the agreed changes in small steps, run the appropriate checks, and keep fixing until the validation passes or a real blocker is found.
 3. **`/review-change`** — review the finished diff from a fresh reviewer context before calling the work done.
-4. **`/open-pr`** *(larger features)* — write a reviewer-friendly PR description and open the pull request.
 
 Do not skip planning unless the user explicitly asks for a tiny direct edit.
 

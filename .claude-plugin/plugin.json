@@ -8,7 +8,6 @@
     "./skills/process/diagnose-bug",
     "./skills/process/ci-triage",
     "./skills/process/review-change",
-    "./skills/process/open-pr",
     "./skills/principles/tdd",
     "./skills/principles/architecture",
     "./skills/principles/engineering-quality",
