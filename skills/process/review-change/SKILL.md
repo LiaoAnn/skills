@@ -38,6 +38,10 @@ The reviewer brief should ask for findings, not reassurance:
 
 ```text
 Review this change for bugs, behavioral regressions, missing tests, violated project conventions, and maintainability risks. Prioritize concrete findings with file and line references. Do not summarize unless there are findings or notable residual risks.
+
+Rate each finding Blocker or Hardening. A defect that occurs every time the path runs is a Blocker. Otherwise a Blocker's trigger must arise without anyone arranging it, and you must name the evidence for that — the traffic pattern, deploy model, or exposure you are relying on, and where you found it. When you cannot tell from the repo, rate it Hardening and say why.
+
+A defect whose worst outcome is cosmetic or easily reversed is Hardening even when it always happens. Where the repo places an untrusted party inside the threat model, that party is a normal actor and crafted input is their normal operation. If everything you found is a Blocker, re-rate them against each other.
 ```
 
 If subagents are unavailable, simulate the same stance: reread the diff from scratch before judging it.
@@ -48,7 +52,7 @@ Prioritize:
 
 - Incorrect behavior or missed requirements.
 - Regressions in nearby flows.
-- Missing or weak tests — judge test quality by `/tdd` (behavior through public interfaces, survives refactors). When the plan, task brief, or diff indicates TDD was used, also audit behavioral coverage: for each targeted behavior exercised through the public interface introduced or changed by the diff, verify tests exist for the expected success path, and where applicable, expected failure/error path, edge cases, and boundary conditions. If any behaviors lack coverage, list them explicitly as findings; absence of gaps is a passing result. Being a declaration is not itself an exemption — per `/tdd`, what matters is whether a test could only restate it. Where a test could exercise it (a `CHECK` expression, a refinement, an ORM-maintained value), the missing test is a gap unless another test in the diff already fails on the same change, or a project mechanism does; check that mechanism exists in CI or project config rather than assuming it, and report its absence as the finding when it does not.
+- Missing or weak tests — judge test quality by `/tdd`. When the plan, brief, or diff indicates TDD was used, audit behavioral coverage per `/tdd` for each behavior the diff introduces or changes, and list uncovered ones explicitly; a gap is a Blocker only when the behavior would be a Blocker if broken, otherwise Hardening. Absence of gaps is a passing result.
 - Broken error handling or edge cases.
 - Validation gaps.
 
@@ -64,16 +68,32 @@ Load only the principle needed for the risk the diff actually shows:
 
 Avoid style commentary that tooling will catch. If validation or CI is failing, distinguish failures caused by the diff from ambient or infrastructure failures; use `/ci-triage` when that classification needs its own pass.
 
-### 5. Report Findings First
+### 5. Rate Blocker or Hardening
 
-Order findings by severity. Each finding should include:
+Two levels only: **Blocker** (fix before merge) and **Hardening** (recorded under Residual Risk, no fix demanded).
+
+State the trigger in one sentence, using only actions the product supports. A defect that occurs every time the path runs is a Blocker without further reachability analysis, subject to the impact gate below; a path nothing reaches is not a path. The rest of this section applies only where the trigger depends on ordering, coincidence, or a particular input.
+
+For those, a Blocker's trigger arises without anyone arranging it — and you must name the evidence for that claim: the traffic pattern, deploy model, or operation you are relying on, and where in the repo, config, or docs you found it. Naming a generically supported operation is not evidence; nearly every product deploys, restarts, retries, and evicts caches. An assumed deployment fact makes it Hardening, with the unresolved question under Open Questions.
+
+Impact gates both ends. A trigger that arises on its own but whose worst outcome is cosmetic or recoverable is Hardening. An arranged trigger that crosses a privilege boundary or loses data unrecoverably is a Blocker.
+
+Where the repo, config, or docs place an untrusted party inside the threat model — an exposed route, an auth boundary, a documented tenancy split — that party is a normal actor: crafted input is their normal operation, and the only question is whether they can reach the path with privileges they can actually obtain. If nothing establishes that exposure, rate it Hardening, with the question under Open Questions.
+
+Testability is not the filter. A determined reviewer can mock almost any scenario into a failing test, including ones nobody will ever hit.
+
+If every finding is a Blocker, the rating carries no information. Re-rate them against each other.
+
+### 6. Report Findings First
+
+Findings holds Blockers only; Hardening goes under Residual Risk. Each Blocker should include:
 
 - File and line, when available.
 - The issue.
-- Why it matters.
+- The concrete trigger — who does what to hit it.
 - Suggested fix or verification.
 
-If there are no findings, say that clearly and mention remaining test gaps or residual risk.
+If there are no blockers, say the change passes and put the rest under Residual Risk. Do not manufacture a blocker to justify the review.
 
 ## Output
 
@@ -84,13 +104,15 @@ Use this structure:
 
 ## Open Questions
 
-## Residual Risk
+## Residual Risk (includes Hardening)
 
 ## Validation Notes
 ```
 
-Skip empty sections except when "no findings" is the main result.
+Skip empty sections except when "no blockers" is the main result.
 
 ## Completion Criterion
 
-The review is complete when the diff has been checked against the intended behavior, relevant project patterns, and validation evidence, and all material risks have been reported without mixing them into a general summary.
+The review is complete when the diff has been checked against the intended behavior, relevant project patterns, and validation evidence, and every blocker has been reported with its concrete trigger, separately from Hardening items in Residual Risk.
+
+No blockers means the change passes. Stop there rather than opening another pass over code the review already covered.

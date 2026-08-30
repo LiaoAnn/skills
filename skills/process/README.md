@@ -23,7 +23,7 @@ Process skills also split by invocation — who can reach them.
 - **[implement-plan](./implement-plan/SKILL.md)** — Execute an agreed plan in vertical slices: implement, validate, report, then wait for approval before persistent side effects such as staging, branching, or committing. References `/tdd` for test-first discipline.
 - **[diagnose-bug](./diagnose-bug/SKILL.md)** — Diagnose product/runtime bugs before fixing. Builds a reproduction path, traces the code, generates ranked hypotheses, defines acceptance criteria.
 - **[ci-triage](./ci-triage/SKILL.md)** — Classify failing CI/local validation checks, reproduce the cheapest reliable signal, apply safe bounded fixes, and hand off implementation or bug diagnosis when needed.
-- **[review-change](./review-change/SKILL.md)** — Review a diff from a fresh reviewer perspective. Prefers a subagent or fresh context. Reports findings by severity.
+- **[review-change](./review-change/SKILL.md)** — Review a diff from a fresh reviewer perspective. Prefers a subagent or fresh context. Separates blockers from hardening and defaults unknowns to hardening.
 - **[open-pr](./open-pr/SKILL.md)** — Write a PR description and open the pull request. Falls back to a standard structure if no project template exists.
 
 ## Flows
