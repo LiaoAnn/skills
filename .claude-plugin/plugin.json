@@ -17,6 +17,7 @@
     "./skills/principles/contracts",
     "./skills/principles/reviewable-change",
     "./skills/principles/property-based-testing",
+    "./skills/principles/agent-instruction-files",
     "./skills/stacks/devcontainer-exec",
     "./skills/stacks/lean4-principle-check",
     "./skills/stacks/drizzle-orm",

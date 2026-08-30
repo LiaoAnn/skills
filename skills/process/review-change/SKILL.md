@@ -64,6 +64,7 @@ Load only the principle needed for the risk the diff actually shows:
 - Use `/contracts` when public APIs, schemas, events, jobs, module exports, config, CLI behavior, URLs, or persisted data shapes change.
 - Use `/reviewable-change` when the diff mixes behavior with refactors, renames, formatting, generated output, or unrelated edits.
 - Use `/engineering-quality` when readability, comments, error context, local refactors, or algorithmic shape are the main risk.
+- Use `/agent-instruction-files` when the diff adds to or edits `AGENTS.md`, `CLAUDE.md`, or another agent instruction file.
 - Use `/property-based-testing` when the behavior is better described by invariants, laws, round trips, state-machine rules, permission rules, or broad generated input spaces.
 
 Avoid style commentary that tooling will catch. If validation or CI is failing, distinguish failures caused by the diff from ambient or infrastructure failures; use `/ci-triage` when that classification needs its own pass.

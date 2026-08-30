@@ -17,3 +17,4 @@ Process skills in `process/` reference these at the relevant step (e.g. `/implem
 - **[contracts](./contracts/SKILL.md)** — Contract-design principles for APIs, schemas, events, jobs, module exports, configuration, and other cross-boundary interfaces.
 - **[reviewable-change](./reviewable-change/SKILL.md)** — Diff hygiene principles for keeping behavior changes, refactors, renames, formatting, generated output, and tests separable.
 - **[property-based-testing](./property-based-testing/SKILL.md)** — Property-based testing discipline for using generated inputs to search for unknown counterexamples to stated behavioral properties.
+- **[agent-instruction-files](./agent-instruction-files/SKILL.md)** — Placement rules for agent instruction files such as `AGENTS.md` and `CLAUDE.md`: a three-question test for whether a fact belongs there or in a comment next to the code, when to collapse it to a pointer, and how to audit a file that has grown stale.

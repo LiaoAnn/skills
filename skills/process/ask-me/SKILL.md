@@ -49,6 +49,10 @@ Use **`/ci-triage`** when CI, typecheck, lint, build, or tests fail and the user
 
 Classify failures before fixing them: introduced by this change, pre-existing, infrastructure/environmental, flaky, or unknown. Apply only low-risk bounded fixes inside `/ci-triage`; use `/implement-plan` for non-mechanical code changes and `/diagnose-bug` for product behavior bugs.
 
+## Instruction File Flow
+
+Use **`/agent-instruction-files`** when a fact is about to be written into `AGENTS.md`, `CLAUDE.md`, or an equivalent, or when such a file has grown long, repetitive, or stale and needs a pass against the code.
+
 ## Context Hygiene
 
 Keep planning and implementation connected while the plan is still active. When reviewing, prefer a fresh context or subagent so the reviewer is not anchored by the implementer's reasoning.
