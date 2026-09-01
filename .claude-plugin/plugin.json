@@ -20,7 +20,6 @@
     "./skills/principles/agent-instruction-files",
     "./skills/stacks/devcontainer-exec",
     "./skills/stacks/lean4-principle-check",
-    "./skills/stacks/codex-search",
     "./skills/stacks/drizzle-orm",
     "./skills/stacks/knip"
   ]
