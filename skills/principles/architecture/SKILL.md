@@ -1,6 +1,6 @@
 ---
 name: architecture
-description: Module-boundary and dependency-hygiene principles for organizing a codebase. Use when placing new files, deciding where logic belongs, adding cross-module imports, or reviewing whether a change respects existing boundaries.
+description: Use when a change affects module ownership, dependency direction, public entry points, or authorization placement.
 ---
 
 # Architecture

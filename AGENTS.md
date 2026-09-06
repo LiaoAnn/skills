@@ -51,10 +51,10 @@ Skills that produce structured output must define their output format explicitly
 
 ## Invocation Model
 
-**Model-invoked** (default — omit `disable-model-invocation`): the agent sees the description every turn and can fire the skill autonomously. Write the description for the agent with rich trigger phrasing:
+**Model-invoked** (default — omit `disable-model-invocation`): the agent sees the description every turn and can select the skill autonomously. Use the shortest task condition that distinguishes it from neighboring skills. Put subcases and examples in the body, not keyword lists in the description.
 
 ```
-Use when the user wants to X, mentions Y, or reports Z.
+Use when configuring Knip or diagnosing its findings.
 ```
 
 **User-invoked** (`disable-model-invocation: true`): only the human can invoke it by typing its name. The description becomes human-facing — a plain one-line summary, no trigger phrases. Zero context load.
@@ -67,7 +67,7 @@ Rules:
 ## Skill Quality
 
 **A good skill:**
-- Does exactly one thing. If it's doing two, split it.
+- Does exactly one thing. If it contains distinct responsibilities, separate them. For multiple task paths within one responsibility, keep the root short and link to supporting docs with explicit read conditions; do not require reading every reference or add an auto-invoked skill merely to split a document.
 - Has a trigger the agent can reliably detect from the description alone (model-invoked), or a name the user will remember (user-invoked).
 - States explicit off-ramps: when to stop, what to hand off, and to which skill.
 - Defines output format when the output will be consumed by the user or another skill.
@@ -77,6 +77,6 @@ Rules:
 **A good skill avoids:**
 - Fuzzy completion: "when the work looks good" is not a criterion.
 - Missing guard conditions: if the skill assumes a plan exists, say so and name the fallback skill.
-- Generic advice that applies to all coding (those belong in CLAUDE.md, not a skill).
+- Generic coding advice the model already knows. Delete it rather than moving it into always-loaded instructions; retain project-specific constraints and deliberate user policies.
 - Describing the same trigger in both a model-invoked skill and a user-invoked router — double-firing wastes context.
 - Accumulating scope across versions. When a skill grows beyond one responsibility, split rather than expand.

@@ -52,7 +52,7 @@ test("createUser makes user retrievable", async () => {
 });
 ```
 
-**Declaration tests**: restate a shape instead of exercising a decision. No plausible bug flips them red — changing the declaration changes the test in lockstep. See [Is This Test Worth Writing](SKILL.md#is-this-test-worth-writing).
+**Declaration tests**: restate a shape instead of exercising a decision. No plausible bug flips them red — changing the declaration changes the test in lockstep. See [Is This Test Worth Writing](test-judgment.md#is-this-test-worth-writing).
 
 ```typescript
 // BAD: restates the schema — a tautology, kills no mutant

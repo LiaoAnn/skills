@@ -1,6 +1,6 @@
 ---
 name: reviewable-change
-description: Diff hygiene principles for human-auditable changes. Use when deciding how to split, limit, or report a diff so behavior changes, refactors, renames, formatting, generated output, and test changes remain separable and reviewable.
+description: Use when a diff needs separation of behavior changes, refactors, generated output, or unrelated edits.
 ---
 
 # Reviewable Change

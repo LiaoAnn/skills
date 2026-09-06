@@ -1,6 +1,6 @@
 ---
 name: knip
-description: Use when configuring or debugging Knip — creating or editing a knip config, tuning entry/project globs, silencing false positives, or reading Knip output. Mentions of knip, `knip.jsonc`, "unused exports", or "unused dependencies" are triggers.
+description: Use when configuring Knip or diagnosing its findings.
 ---
 
 # Knip

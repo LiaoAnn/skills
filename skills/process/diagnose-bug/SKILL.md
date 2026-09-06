@@ -1,6 +1,6 @@
 ---
 name: diagnose-bug
-description: Diagnose a reported product, runtime, or performance bug before fixing it. Use when the user reports broken, slow, surprising, inconsistent, or user-visible behavior and wants root cause analysis, reproduction steps, fix strategy, or acceptance criteria. For failing CI, build, lint, typecheck, or test jobs, use ci-triage first unless the failure has already been classified as a product behavior bug.
+description: Use when a product or performance bug needs reproduction and root-cause diagnosis; use ci-triage for unclassified check failures.
 ---
 
 # Diagnose Bug
@@ -24,7 +24,7 @@ Separate observed facts from guesses.
 
 Find the fastest reliable way to reproduce or detect the bug.
 
-Try, in roughly this order:
+Choose the cheapest reliable signal for this symptom; these are options, not a required sequence. Creating a test or throwaway harness requires authority under `/persistent-side-effects`, even during diagnosis:
 
 1. Existing failing test or focused new regression test.
 2. Minimal command, script, or CLI invocation.
@@ -78,7 +78,7 @@ Once the cause is clear, produce:
 - Risks.
 - Acceptance criteria.
 
-Then move to `/plan-it` for the actual code change.
+If a fix was requested and the cause, scope, and validation are clear, continue with a brief plan and `/implement-plan`. Use `/plan-it` when material decisions remain; do not add a new approval round for already-authorized work.
 
 ## Completion Criterion
 
@@ -89,4 +89,4 @@ Diagnosis is complete when there is:
 - A credible root cause or a clear blocker.
 - A validation path that can prove the fix.
 
-Do not implement the fix inside this skill unless the user explicitly asks to continue.
+A diagnosis-only request ends here. If the original request included fixing the bug, continue within that authority; ask only for a new design, scope, or safety decision.

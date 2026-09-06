@@ -1,6 +1,6 @@
 ---
 name: review-change
-description: Review a completed or in-progress code change from a fresh reviewer perspective. Use when the user asks for code review, wants a diff checked before finishing, or wants subagents to inspect correctness, regressions, tests, and maintainability.
+description: Use when reviewing a diff for defects, regressions, coverage gaps, and residual risks.
 ---
 
 # Review Change
@@ -34,14 +34,12 @@ Do not rely on the implementer's reasoning as proof. Verify against the diff and
 
 Prefer a subagent or fresh context for the review, especially after substantial implementation work.
 
-The reviewer brief should ask for findings, not reassurance:
+The reviewer brief should ask for findings, not reassurance. Include the rating section below or a resolved, readable reference to it in the handoff:
 
 ```text
 Review this change for bugs, behavioral regressions, missing tests, violated project conventions, and maintainability risks. Prioritize concrete findings with file and line references. Do not summarize unless there are findings or notable residual risks.
 
-Rate each finding Blocker or Hardening. A defect that occurs every time the path runs is a Blocker. Otherwise a Blocker's trigger must arise without anyone arranging it, and you must name the evidence for that — the traffic pattern, deploy model, or exposure you are relying on, and where you found it. When you cannot tell from the repo, rate it Hardening and say why.
-
-A defect whose worst outcome is cosmetic or easily reversed is Hardening even when it always happens. Where the repo places an untrusted party inside the threat model, that party is a normal actor and crafted input is their normal operation. If everything you found is a Blocker, re-rate them against each other.
+Use the supplied "Rate Blocker or Hardening" rules. Rate each finding independently, with a concrete trigger and evidence; do not force a mixture of severity levels.
 ```
 
 If subagents are unavailable, simulate the same stance: reread the diff from scratch before judging it.
@@ -52,7 +50,7 @@ Prioritize:
 
 - Incorrect behavior or missed requirements.
 - Regressions in nearby flows.
-- Missing or weak tests — judge test quality by `/tdd`. When the plan, brief, or diff indicates TDD was used, audit behavioral coverage per `/tdd` for each behavior the diff introduces or changes, and list uncovered ones explicitly; a gap is a Blocker only when the behavior would be a Blocker if broken, otherwise Hardening. Absence of gaps is a passing result.
+- Missing or weak tests — use [test judgment](../../principles/tdd/test-judgment.md), without loading the TDD workflow just for review. Audit changed behaviors and list uncovered ones; a gap is a Blocker only when the behavior would be a Blocker if broken, otherwise Hardening. When TDD was required, also check available RED-before-implementation evidence; report missing evidence as unknown rather than inferring it from the final diff.
 - Broken error handling or edge cases.
 - Validation gaps.
 
@@ -65,7 +63,7 @@ Load only the principle needed for the risk the diff actually shows:
 - Use `/reviewable-change` when the diff mixes behavior with refactors, renames, formatting, generated output, or unrelated edits.
 - Use `/engineering-quality` when readability, comments, error context, local refactors, or algorithmic shape are the main risk.
 - Use `/agent-instruction-files` when the diff adds to or edits `AGENTS.md`, `CLAUDE.md`, or another agent instruction file.
-- Use `/property-based-testing` when the behavior is better described by invariants, laws, round trips, state-machine rules, permission rules, or broad generated input spaces.
+- Use `/property-based-testing` when a concrete property, generated input space, unknown counterexample class, and oracle can be named.
 
 Avoid style commentary that tooling will catch. If validation or CI is failing, distinguish failures caused by the diff from ambient or infrastructure failures; use `/ci-triage` when that classification needs its own pass.
 
@@ -83,7 +81,7 @@ Where the repo, config, or docs place an untrusted party inside the threat model
 
 Testability is not the filter. A determined reviewer can mock almost any scenario into a failing test, including ones nobody will ever hit.
 
-If every finding is a Blocker, the rating carries no information. Re-rate them against each other.
+Rate each finding independently against reachability, impact, and evidence. All findings may legitimately have the same rating; never promote or downgrade one to force a distribution.
 
 ### 6. Report Findings First
 

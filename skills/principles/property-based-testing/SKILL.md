@@ -1,6 +1,6 @@
 ---
 name: property-based-testing
-description: Use when generated inputs can search for unknown counterexamples to a stated behavioral property, law, invariant, round trip, model comparison, or state transition rule. Common fits include parsers, serializers, validators, calculations, permissions, state machines, migrations, normalization, ordering, grouping, and deduplication, but do not use merely because code belongs to one of these domains.
+description: Use when a concrete property, generated input space, and oracle can expose unknown behavioral counterexamples.
 ---
 
 # Property-Based Testing

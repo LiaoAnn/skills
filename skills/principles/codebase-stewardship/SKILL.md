@@ -1,6 +1,6 @@
 ---
 name: codebase-stewardship
-description: Codebase-coherence principles for fitting a change into existing patterns. Use when choosing names, file placement, extension points, abstractions, test fixtures, or domain vocabulary so new work does not create parallel systems or drift from local conventions.
+description: Use when choosing between an existing local pattern and a new abstraction, helper, or domain term.
 ---
 
 # Codebase Stewardship

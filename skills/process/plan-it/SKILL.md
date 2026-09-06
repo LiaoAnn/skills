@@ -1,77 +1,47 @@
 ---
 name: plan-it
-description: Plan a code change before implementation. Use when the user wants to add, modify, remove, or fix behavior and needs an approach, impact analysis, testing strategy, acceptance criteria, or implementation plan.
+description: Use when a code change needs an approach, scope, or validation plan before implementation.
 ---
 
 # Plan It
 
-Plan before editing. Produce the smallest justified, verifiable plan that fits the current system.
+Produce the smallest justified plan: the outcome, load-bearing decisions, affected boundaries, and evidence of correctness. Leave exact code, filenames, edit ordering, and naming to implementation unless they are part of the contract.
 
-A plan describes the goal and the load-bearing decisions that reach it — not the procedure to type it out. Decide the outcome, the interfaces and boundaries involved, and how correctness is verified; leave exact code, edit ordering, and naming to `/implement-plan`. Test: if a detail could change during implementation without invalidating the plan, it does not belong in the plan.
+## Boundaries
 
-## Hard Gates
+- Inspect only the instructions, code, tests, and configuration needed to resolve the planning decisions. Reuse current context rather than rereading it ceremonially.
+- Planning alone does not authorize product edits or persistent artifacts. Apply `/persistent-side-effects`; keep the plan in the conversation unless another location is approved.
+- Use the harness's planning support when it helps or is required. A short conversational plan is sufficient for a small, clear, low-risk change; no tool-availability announcement is needed.
+- If asked only for feasibility, report approach, impact, risks, and go/no-go, then stop.
 
-1. Inspect before planning: read `CLAUDE.md` and `CONTEXT.md` if present, then inspect relevant code, tests, docs, and configuration.
-2. Use native planning: call the harness plan-mode tool if available, such as `EnterPlanMode`. If only a todo/plan tracker exists, use it. If neither exists, state that before writing a Markdown plan.
-3. Do not implement. Planning must not edit product files, create artifacts, or run implementation commands.
-4. Describe decisions, not procedure. State what changes, where, why it fits, and how it is verified. Do not write production code, pseudo-code, or a step-by-step edit list — those are `/implement-plan`'s output.
-5. Apply `/persistent-side-effects`: planning creates no files, directories, branches, commits, staged changes, or scratch artifacts unless the user explicitly approved them.
-6. Record both the formal-check decision and the TDD decision.
+## Decisions to Resolve
 
-## Planning Steps
+1. **Outcome and scope.** What changes, what stays unchanged, and which modules or contracts are affected?
+2. **Approach.** Which existing interface or pattern fits, and why? Compare alternatives only when the choice matters. Do not turn the plan into code or an edit itinerary.
+3. **Validation.** Name observable behaviors and the cheapest checks that distinguish success from failure. Use [test judgment](../../principles/tdd/test-judgment.md) when deciding whether a new test adds coverage; do not load the TDD workflow merely to make that decision.
+4. **Test-first choice.** Honor the user's choice or established project policy. Otherwise choose an appropriate approach and state it; ask only when an unresolved preference or trade-off materially changes the work. If TDD is chosen, `/implement-plan` follows `/tdd` for behavior-changing slices.
+5. **Formal gate, only if applicable.** An existing documented checker covering this change, or an explicit user request, makes the gate required. Record its command, applicability, and stop condition. If required but unavailable, record the blocker and require an explicit user decision before implementation. The mere presence of `.lean` files does not establish applicability. Do not introduce a checker incidentally.
+6. **Authority and unknowns.** Surface new design decisions, destructive actions, or external effects needing approval under `/agentic-change-governance` and `/persistent-side-effects`. Ask only questions that block a sound plan.
 
-1. Restate the goal in user-facing behavior terms.
-2. Summarize current behavior, nearby tests, affected public interfaces, existing patterns, and the blast radius (which modules or contracts are in scope) — not a file-by-file edit list.
-3. Choose the smallest approach that fits the codebase, described at the level of decisions and boundaries: which interface, which pattern, what stays out of scope. Stop short of how to write it. Compare alternatives only when there are real options.
-   - If the goal is feasibility assessment only, stop here. Report blast radius, risks, and a go/no-go; no full plan is needed.
-4. Decide the formal principle check:
-   - `required` when an existing checker applies or the user requested one.
-   - `unavailable` when required but not found.
-   - `not needed` when no documented checker applies.
-   - Note the exact checker command and whether user approval is required before continuing.
-5. Decide validation:
-   - Ask one direct TDD question for behavior changes unless the user already specified TDD, test-first, or post-implementation tests.
-   - `TDD: yes` means `/implement-plan` must invoke `/tdd`; for slices that change behavior, the first production edit happens only after an expected RED test. Slices that `/tdd`'s test-necessity gate exempts are not owed a RED — that gate decides, not the category of file being edited.
-   - `TDD: no` means tests may be added after or alongside implementation.
-6. List the observable behaviors to test. Prefer user-visible behavior, edge cases, error paths, permissions, state transitions, serialization, concurrency, and public contract expectations. List only behavior, and only once. A schema, type, migration, or configuration change earns an entry when a test could exercise it *and* no other entry or existing mechanism already covers the same change — prefer the caller-level behavior over the declaration-level one; `/tdd`'s gate is the authority. An empty inventory is a valid answer for a change that adds no decision.
+## Output
 
-## Plan Format
+Scale detail to risk. For a small change, a paragraph covering goal, approach, scope, and validation is enough. For a larger change, use:
 
 ```markdown
-## Goal
-
+## Goal and Scope
 ## Current Understanding
-
 ## Proposed Approach
-
-<!-- The decision and why it fits: interface, pattern, boundaries. No code, pseudo-code, or edit steps. -->
-
-## Affected Areas
-
-<!-- Modules, contracts, and interfaces in scope — the blast radius, not a file-by-file edit list. -->
-
-## Risks
-
-## Formal Principle Check
-
-<!-- required / unavailable / not needed -->
-<!-- Checker: command, file, skill, or workflow to run -->
-<!-- Conflict condition: what would stop implementation -->
-<!-- User approval required: yes / no -->
-
-## Test-First Decision
-
-## Test Behavior Inventory
-
-<!-- Observable behaviors only; may be empty. Prefer the caller-level entry: no entry for a rule another entry already covers -->
-
-## Validation Plan
-
-## Open Questions
+## Validation
+<!-- Observable behaviors, existing coverage, checks, and test-first choice. -->
+## Risks and Open Decisions
 ```
+
+Add `## Formal Principle Check` only when applicable: `required` or `unavailable`, checker command, conflict condition, and any approval needed. Do not fill in a mandatory "not needed" section for unrelated work.
+
+Avoid repeating the same behavior inventory in several sections. The plan defines completion and genuine stop conditions, not approval checkpoints for every slice.
 
 ## Completion Criterion
 
-The plan is complete when it states what will change, where, why it fits the codebase, how correctness will be verified, whether a formal check gates implementation, whether implementation is test-first, which behaviors should be tested, and what risks or unknowns remain.
+The plan states the proposed outcome, affected boundaries, approach, validation and test-first choice, and any unresolved risk or approval. Applicable formal gates are identified with their command or blocker. No implementation has occurred under planning-only authority.
 
-After the plan is accepted, move to `/implement-plan`.
+Once accepted, continue with `/implement-plan`. If the user already authorized a clear, low-risk implementation, the brief plan need not introduce another approval round; new design decisions still require approval.

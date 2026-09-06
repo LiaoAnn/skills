@@ -1,76 +1,53 @@
 ---
 name: implement-plan
-description: Implement an agreed code-change plan. Use when a plan exists or the user asks the agent to execute planned work, edit code, run validation for that work, fix validation failures encountered during implementation, and report the final state.
+description: Use when executing an accepted implementation plan through validation.
 ---
 
 # Implement Plan
 
-Execute the accepted plan in small, verifiable slices.
+Carry the accepted outcome through implementation, relevant validation, and self-review without pausing after the first passing slice.
 
-## Hard Gates
+## Preconditions and Authority
 
-1. Start from an accepted plan. If no plan exists and the change is not trivial, run `/plan-it` first.
-2. Apply `/persistent-side-effects` before any file, directory, branch, staging, commit, deletion, move, overwrite, scratch, or notes artifact.
-3. Run required formal gates before product tests or production code.
-4. If the plan says `TDD: yes`, invoke `/tdd`; for slices that change behavior, the first production edit must happen after a focused test has run RED for the expected reason. Slices `/tdd`'s test-necessity gate exempts are not owed a RED (see *Implement Vertical Slices*).
-5. Keep every edit mapped to the accepted plan. Stop and update the plan if the code contradicts it.
-6. Preserve unrelated user work: do not revert, overwrite, stage, or commit changes outside the accepted plan.
+- Start from an accepted plan. A clear, low-risk implementation request can carry a brief inline plan; use `/plan-it` when material decisions remain unresolved.
+- Apply `/persistent-side-effects` and `/agentic-change-governance`. Necessary in-scope source and test changes do not need per-file approval; protected or out-of-scope actions do.
+- Use relevant code and tests to confirm the plan, reusing evidence already gathered. Preserve unrelated user work.
+- Adapt implementation details when new evidence preserves the accepted outcome and boundaries. Stop for a decision only when evidence invalidates a load-bearing design choice or changes scope, public behavior, ownership, or risk beyond what was approved.
 
-## Process
+## Applicable Formal Gates
 
-### 1. Inspect Before Editing
+If no documented checker applies and none was requested, skip this section's workflow. Honor an explicit `Formal principle check: not needed` decision unless new evidence establishes applicability.
 
-Read relevant files and nearby tests. Confirm target behavior, likely files, validation commands, formal-check requirements, and user constraints.
+For a required gate, run the named checker before product tests or production edits. A missing checker, tooling failure, or design conflict blocks proceeding until resolved or handled by explicit user decision. Do not silently waive a gate or weaken it to pass. Accepted formal model edits may precede the check.
 
-If the plan no longer matches the code, stop and update the plan instead of forcing implementation.
+## Implement and Validate
 
-### 2. Run Formal Gates
+Work in logical slices. For each, make the change, run the checks that provide useful evidence, and self-review against the accepted outcome. Progress updates are informational, not requests for approval; continue until all slices are complete or a genuine blocker remains.
 
-- `Formal principle check: not needed`: skip.
-- `Formal principle check: unavailable`: stop and ask for an explicit user decision before tests or production code.
-- `Formal principle check: required`: run the named checker first.
+When `TDD: yes`, use `/tdd`. Behavior-changing production edits follow a focused test that ran RED for the expected reason. [Test judgment](../../principles/tdd/test-judgment.md) owns exemptions; do not manufacture a test just to satisfy the workflow. Reading, baseline checks, and required formal model edits may precede RED.
 
-If a required checker is not identified, stop and update the plan. If a checker reports a conflict, stop and ask for a design decision. Do not weaken or bypass validation to proceed.
+Choose validation by impact and evidence, not a fixed checklist:
 
-### 3. Implement Vertical Slices
+- Run the narrowest check that detects the plausible failure: a focused test, typecheck, lint, generator check, or integration path.
+- Run broader checks when affected boundaries, shared code, project requirements, or unresolved risk justify them—not merely because another slice finished.
+- If the accepted outcome includes running or inspecting the application, do that; a green unit test alone does not complete it.
+- Fix failures caused by this change within accepted scope and rerun affected checks. Use `/ci-triage` when causality is uncertain; do not chase unrelated failures or repeat unchanged checks without new evidence.
 
-Work one logical slice at a time, and carry through every slice in the plan without pausing for approval between them:
+Use `/codebase-stewardship` for a real local-pattern decision and `/reviewable-change` when diff separation matters. Use `/property-based-testing` only when a concrete property, generated input space, unknown counterexample class, and oracle can be named.
 
-```text
-prepare gate -> implement slice -> validate -> self-review against the plan -> report progress -> next slice
-```
+Stop only for unresolved failures, missing access, an applicable formal gate, or an authority/design decision that cannot be resolved within scope. Do not weaken tests or rules to finish.
 
-Self-review is the agent's own check that the slice matches the plan and validation passed — not a request for user confirmation. Report progress is a brief non-blocking note of what the slice did and its validation result; it is informational, not a checkpoint. Do not stop after a passing slice to ask whether to continue; proceed to the next slice.
+## Output
 
-Stop mid-run only for a genuine gate:
-- A validation failure or blocker that cannot be resolved autonomously.
-- Code that contradicts the plan (per Hard Gate 5, stop and update the plan).
-- A required formal-check conflict (per step 2).
-- A persistent side effect that `/persistent-side-effects` requires user approval for.
+Report:
 
-For `TDD: yes`, invoke `/tdd` and follow its red-green-refactor cycle.
+- Changes and completed outcomes.
+- Validation commands and results, including blocked or unrun checks.
+- Remaining risks and deviations from the plan.
+- Any slice exempted from a new test, with the existing test/check that owns its concern—or explicitly that none does.
 
-`TDD: yes` applies to the slices that change behavior. It does not mean every slice opens with a RED. Allowed before RED: reading files, baseline checks, and formal principle/spec edits required by the plan. Separately, edits that `/tdd`'s test-necessity gate exempts are owed no RED at all — that gate, not a category of file, decides which. Never manufacture a test to justify starting a slice; implement it, and carry the exemption into the final report per step 5.
-
-Make focused edits that fit existing patterns. Use `/agentic-change-governance` for authority or scope questions, `/codebase-stewardship` for local pattern fit, and `/reviewable-change` when splitting or reporting the diff.
-
-### 4. Validate Continuously
-
-Run the cheapest relevant checks early:
-
-1. Formatter or lint for touched files.
-2. Typecheck or static checks.
-3. Focused tests near the change.
-4. Broader tests at the end when feasible.
-
-Use `/property-based-testing` when the behavior is best expressed as an invariant, round trip, state-machine rule, permission rule, parser/serializer property, migration transform, or broad input-space guarantee.
-
-If a check fails, inspect, fix the cause, and rerun until it passes or a real blocker is identified.
-
-### 5. Finish With Evidence
-
-Report what changed, validation results, commands that could not run, remaining risks, any slice shipped without a test under `/tdd`'s gate together with what owns its concern instead — another test, a project mechanism, or nothing, and "nothing" is itself worth reporting — and the proposed commit message if a diff exists. Recommend `/review-change`.
+Recommend `/review-change` when an independent pass would add value. Do not stage or commit unless specifically approved.
 
 ## Completion Criterion
 
-Implementation is complete only when the requested behavior is implemented, required formal gates passed or were handled by explicit user decision, practical validation passed or is blocked for a stated reason, no temporary debugging code remains, and `/persistent-side-effects` has not been violated.
+All accepted outcomes are implemented and inspected where requested; applicable formal gates passed or were handled by explicit user decision; relevant validation passed or has a stated blocker; no temporary debugging code remains; and every side effect stayed within approved authority. A blocked result is reported as blocked, not as a completed implementation.

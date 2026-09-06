@@ -1,6 +1,6 @@
 ---
 name: engineering-quality
-description: Maintainable-code principles for clarity, comments, error context, small local refactors, and algorithmic shape. Use when a planning, implementation, or review decision specifically needs judgment about readability, debuggability, scope control, or avoidable complexity.
+description: Use when a change needs judgment about readability, error context, or avoidable algorithmic complexity.
 ---
 
 # Engineering Quality
@@ -41,11 +41,11 @@ Prefer errors that answer:
 
 Keep transport-specific error classes at the transport boundary. Lower-level code should raise domain or application errors that can be translated outward.
 
-## Do Small Local Refactors Now
+## Keep Local Refactors Within Authority
 
-Do not defer small cleanup that is directly in the path of the change and reduces immediate confusion: naming, obvious duplication, dead branches, or a tiny extraction that makes the behavior clearer.
+Make small in-path refactors when they are needed for correctness or to make the changed path understandable. Follow `/agentic-change-governance` for the distinction between necessary local support and opportunistic improvement; proximity alone is not authorization.
 
-Do defer cleanup when it meaningfully expands scope, needs separate review, or touches code outside the current behavior path.
+Defer optional cleanup, scope expansion, and work outside the changed behavior unless explicitly requested.
 
 ## Watch Algorithmic Shape
 
@@ -55,4 +55,4 @@ Prefer maps, sets, indexing, batching, or precomputation when repeated lookup or
 
 ## Completion Criterion
 
-The code is clear enough to review without decoding tricks, comments explain only non-obvious context, errors carry useful and safe context, small in-path cleanup is handled, and the algorithmic shape is reasonable for expected scale.
+The code is clear enough to review without decoding tricks, comments explain only non-obvious context, errors carry useful and safe context, necessary in-path refactors stay within accepted scope, and the algorithmic shape is reasonable for expected scale.

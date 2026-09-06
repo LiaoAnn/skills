@@ -1,6 +1,6 @@
 ---
 name: study-repo
-description: Use for repo/package questions, feature tracing, usage checks, and dependency uncertainty about behavior, contracts, limits, versions, or bugs. Verify package claims with primary sources before answering or coding.
+description: Use when answering repository or package questions that require tracing behavior or verifying a contract from primary sources.
 ---
 
 # Study Repo
@@ -19,11 +19,11 @@ Identify which kind of answer the user needs:
 - **External package behavior** — how a dependency's documented contract, implementation, versions, or known limitations actually work.
 - **Change readiness** — what must be understood before planning a change.
 
-State the classification briefly.
+Use the classification to choose the evidence needed; do not announce it unless it helps explain the scope.
 
 ### 2. Find the Anchors
 
-Read the smallest set of primary sources that can answer the question:
+Read the smallest set of primary sources that can answer the question. The following are options, not a required reading sequence; stop once evidence answers the question and reuse current context:
 
 1. Repo-level docs and package/config files for orientation.
 2. Entry points, routes, commands, public exports, or tests related to the question.

@@ -8,7 +8,7 @@ Process skills in `process/` reference these when the work touches the relevant 
 
 ## Skills Reference
 
-- **[devcontainer-exec](./devcontainer-exec/SKILL.md)** — Resolve a project's Dev Container and route every build, test, lint, and run command through `docker exec` while editing files on the host.
+- **[devcontainer-exec](./devcontainer-exec/SKILL.md)** — Resolve and verify the required Dev Container before project execution. Load [resolution troubleshooting](./devcontainer-exec/resolution.md) or [lifecycle guidance](./devcontainer-exec/lifecycle.md) only when needed; host editing requires a bind-mounted source.
 - **[lean4-principle-check](./lean4-principle-check/SKILL.md)** — Use existing Lean 4 models or checks to validate whether a planned design conflicts with project principles before implementation.
-- **[drizzle-orm](./drizzle-orm/SKILL.md)** — Driver-agnostic guidance for using Drizzle ORM: generated migrations, typed JSON columns, timestamp automation, and testing Drizzle-backed code with Vitest (client-level resets, real migrations via first-party tooling, no schema-only tests).
+- **[drizzle-orm](./drizzle-orm/SKILL.md)** — Routes to [schema](./drizzle-orm/schema.md), [migrations](./drizzle-orm/migrations.md), or [database testing](./drizzle-orm/testing.md) guidance. Preserves generated migration state, JSON types, timestamp automation, and behavior-focused coverage.
 - **[knip](./knip/SKILL.md)** — Configuring Knip: `.jsonc` config with commented ignores, reporting exported types used only inside their own file, and the shadcn/ui + CSS-imported-dependency (`tailwindcss`, `tw-animate-css`) exceptions.

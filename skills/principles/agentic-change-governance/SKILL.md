@@ -1,6 +1,6 @@
 ---
 name: agentic-change-governance
-description: Agent authority and scope-control principles. Use when deciding whether an agent is authorized to make or propose a change, especially design changes, ownership-boundary changes, convention changes, public-contract changes, opportunistic cleanup, or rule weakening outside the accepted request or plan.
+description: Use when a proposed change may exceed accepted scope or introduce an unapproved design decision.
 ---
 
 # Agentic Change Governance
@@ -16,7 +16,7 @@ Classify each intended change:
 - **Design change**: alters architecture, ownership boundaries, public APIs, conventions, storage shape, deployment behavior, or cross-module responsibilities.
 - **Opportunistic change**: cleanup, reorganization, abstraction, renaming, or style churn not required for the requested behavior.
 
-Implement in-scope and local-support changes only. Stop and ask for human approval before making design changes. Do not make opportunistic changes unless explicitly requested.
+Implement in-scope and necessary local-support changes. Design changes already explicitly approved in the request or plan may proceed; ask only for new or materially changed design decisions. Do not make opportunistic changes unless explicitly requested. A nearby cleanup is local support only when needed for correctness or to make the changed path understandable, not merely because it would be nicer.
 
 ## Preserve Human-Recognizable Shape
 
@@ -46,7 +46,7 @@ If the system rule appears wrong, report the conflict and propose a separate des
 
 ## Escalation Triggers
 
-Stop and request review or a revised plan when the change would:
+Stop and request approval or a revised plan when an action not already explicitly approved would:
 
 - Move code across module or ownership boundaries.
 - Introduce a new cross-cutting abstraction.
@@ -58,4 +58,4 @@ Stop and request review or a revised plan when the change would:
 
 ## Completion Criterion
 
-The change stays within the accepted authority: every edit maps to the request or accepted plan, no unapproved design or opportunistic changes are included, system rules remain intact, and any architecture, contract, ownership, or convention change has been explicitly surfaced for human approval.
+The change stays within the accepted authority: every edit maps to the request or accepted plan, no unapproved design or opportunistic changes are included, system rules remain intact unless their change was explicitly approved, and every architecture, contract, ownership, or convention change has explicit approval rather than merely appearing in a final report.

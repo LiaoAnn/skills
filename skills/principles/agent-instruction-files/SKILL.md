@@ -1,6 +1,6 @@
 ---
 name: agent-instruction-files
-description: Placement rules for agent instruction files (AGENTS.md, CLAUDE.md, .cursorrules, .github/copilot-instructions.md) and their relationship to code comments. Use when deciding whether a fact belongs in one of those files or in a comment next to the code, before adding or expanding a paragraph in one, or when such a file has grown long, repetitive, or stale.
+description: Use when adding, relocating, or pruning guidance in agent instruction files such as AGENTS.md or CLAUDE.md.
 ---
 
 # Agent Instruction Files
@@ -11,11 +11,11 @@ An instruction file carries only what an agent must know **before opening any fi
 
 Writing to the instruction file is always the cheaper move. The right comment location has to be found; the instruction file is a single known path that appends cleanly and never conflicts with surrounding code. Any agent will take that path, and nothing pushes back — type checkers and dead-code tools catch unused symbols, never a repeated paragraph.
 
-The cost arrives later. A duplicated explanation has two copies and only one of them moves when the code moves, so the instruction file drifts first — usually into a wrong path or a renamed symbol. A comment cannot drift, because it travels with the code it describes.
+The cost arrives later. A duplicated explanation has two copies and only one of them moves when the code moves, so the instruction file drifts first — usually into a wrong path or a renamed symbol. A nearby comment is easier to update alongside the code, but can still drift; verify its accuracy rather than assuming proximity makes it current.
 
 ## Apply the Placement Test
 
-Answer three yes/no questions about the paragraph.
+First check whether the paragraph is accurate, necessary, and adds guidance the model would otherwise lack. Remove obsolete, duplicate, or unhelpful advice with a reason; do not relocate it merely to preserve its words. Keep unresolved policy questions in place until clarified. For useful content, answer three yes/no questions about the paragraph.
 
 1. **Is there a single file that could carry this as a comment, and would an agent open that file while doing the work the paragraph concerns?** Both halves must hold to answer yes. Answer **no** when no single file owns the fact, when the agent needs it before it knows which file to open, or when the owning file cannot carry a comment at all — a lockfile, a manifest without comment syntax, a generated artifact, a binary.
 2. **Is it a prohibition rather than an explanation?** "Never translate between protocols" is a prohibition: an agent must know it before choosing an approach, and choosing an approach happens before any file is opened. "This request is form-encoded because the endpoint rejects JSON" is an explanation.
@@ -56,14 +56,14 @@ A file that has grown long is fixed by comparing it against the code, not by com
 - **Look for the comment, not just the file header.** A paragraph that names no file is the most likely duplicate, not the least — search the repo for its distinctive terms before treating it as original, and check inline comments, not only headers.
 - **Deleting and pointing are different outcomes.** Both leave a paragraph the code already explains, but only one leaves a line behind. A pointer is right when the test still admits the paragraph — the agent must be warned before it opens anything. Otherwise delete outright. A file rewritten entirely as pointers drifts exactly like the prose it replaced.
 - **Never resolve doubt by deleting.** An ambiguous paragraph stays, and is reported as an open question.
-- **Write the comment before removing the paragraph.** A fact must never be absent from both places at once. When no comment carries it yet, writing that comment is part of the same change.
+- **Preserve necessary facts, not every paragraph.** When useful guidance is relocated, write or verify the destination in the same change. When guidance is obsolete, redundant, or unhelpful, deletion needs a reason, not a new comment.
 
-Report before editing: one line per paragraph leaving the file, saying what it said and either the `path:line` of the comment that already carried it or the comment being written to carry it. That list is what proves nothing load-bearing was lost. Get approval for the rewrite and the new comments together — see `/persistent-side-effects`.
+Report before editing: one line per paragraph leaving the file, with its destination (comment, documentation, or pointer) or the reason for deletion. For a corrected policy, state the replacement and why. Follow `/persistent-side-effects`: an accepted audit rewrite covers in-scope edits, but new policy decisions need approval. Do not re-ask for the same approved rewrite.
 
-If the pass turns up work larger than adding comments, that is a code change. Hand off to `/plan-it`.
+If preserving a fact would require changing product behavior or structure rather than instructions, comments, or documentation, hand off to `/plan-it`. Do not broaden an instruction audit into product implementation.
 
 ## Completion Criterion
 
-For every paragraph decided: it sits where the test sends it; a split's reasoning appears in the comment and not in the file; every path, symbol, or version it names resolves and is not followed by a restatement of what lives there; and nothing was removed without a comment — existing or written in the same change — that carries it.
+For every paragraph decided: useful guidance sits where the test sends it, necessary relocated facts remain available at a verified destination, and obsolete, duplicate, or unhelpful guidance is deleted with a reason. A split's reasoning is not duplicated; retained paths, symbols, and versions resolve. Corrected policies have the required approval; comments are checked for accuracy too.
 
 Deciding one paragraph settles that paragraph. A whole file is settled once every paragraph has been decided or reported as an open question and left in place, and the report lists every paragraph that left the file.

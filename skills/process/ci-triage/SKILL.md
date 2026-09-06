@@ -1,6 +1,6 @@
 ---
 name: ci-triage
-description: Triage and boundedly remediate failing CI or local validation checks. Use when builds, type checks, lint, tests, GitHub checks, or other CI jobs fail and the user wants to know what is caused by the current change, what can be auto-fixed safely, what needs implementation work, or what can be treated as unrelated.
+description: Use when failing CI or local checks need cause classification and bounded remediation.
 ---
 
 # CI Triage
@@ -22,14 +22,9 @@ Separate skipped checks, infrastructure failures, and code failures.
 
 ### 2. Reproduce the Cheapest Local Signal
 
-Run local checks in dependency order, starting with the cheapest check that can explain the rest:
+Reproduce the narrowest failing command or probe that can distinguish the suspected causes. Do not run formatting, types, and the full suite as a mandatory ladder. Resolve a compile or setup failure first when it prevents the relevant test from running; unrelated lint failures need not block diagnosis of an independent test failure.
 
-1. Formatting or lint for touched files.
-2. Typecheck or static analysis.
-3. Focused tests near the change.
-4. Broader test or integration suite.
-
-If static checks fail, fix them before interpreting downstream test failures. Type or compile errors often cause cascading failures.
+Broaden validation when the failure's dependencies or affected boundaries justify it.
 
 ### 3. Compare Against the Base When Needed
 
@@ -44,7 +39,7 @@ Classify each failure:
 
 ### 4. Apply Bounded Fixes
 
-Fix only low-risk failures that are mechanical, local, and clearly caused by the current change:
+When remediation is authorized, fix only low-risk failures that are mechanical, local, and clearly caused by the current change. A diagnosis-only request stays read-only; apply `/persistent-side-effects` to any write or command with side effects. Eligible fixes include:
 
 - Formatter or linter autofixes.
 - Missing imports, type-only imports, or obvious import ordering.
@@ -72,4 +67,4 @@ Report:
 
 ## Completion Criterion
 
-CI triage is complete when each failing check is classified, safe bounded fixes have been applied and rerun, failures needing implementation or bug diagnosis are handed off with evidence, and the remaining failures have evidence showing why they are pre-existing, environmental, flaky, or blocked.
+CI triage is complete when each failing check is classified, authorized safe bounded fixes have been applied and rerun (or proposed for diagnosis-only work), failures needing implementation or bug diagnosis are handed off with evidence, and the remaining failures have evidence showing why they are pre-existing, environmental, flaky, or blocked.

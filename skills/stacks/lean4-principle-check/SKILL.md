@@ -1,6 +1,6 @@
 ---
 name: lean4-principle-check
-description: Use when a repo has Lean 4, Lake, .lean files, or proof/model artifacts for design principles, architecture rules, contracts, invariants, permission rules, or consistency constraints, especially when a plan's `Formal principle check: required` field names this skill or Lean 4 artifacts exist in the repo and a planned change might conflict with encoded principles.
+description: Use when an applicable Lean 4 model or explicit user request requires checking a planned design against formal invariants.
 ---
 
 # Lean 4 Principle Check
@@ -13,7 +13,7 @@ Start from a concrete plan. If there is no plan, run `/plan-it` first.
 
 Use existing Lean 4 artifacts or an explicit user request to create one. Do not introduce Lean 4 to an unrelated project as incidental cleanup.
 
-Treat Lean as a formal design gate, not as a replacement for product tests. After this check passes, continue with `/tdd` or `/implement-plan`.
+Treat Lean as a formal design gate, not as a replacement for product tests. After this check passes, continue with `/implement-plan`; use `/tdd` only when test-first was selected.
 
 ## Process
 
@@ -67,13 +67,13 @@ Use the lowest check that actually proves the intended gate:
 
 For ordinary agent work, a successful build is not enough if the new check relies on `sorry`, `admit`, or a custom axiom. Audit the declaration or report that the proof is only valid relative to those assumptions.
 
-### 5. Run Before TDD
+### 5. Run Before Product Implementation
 
 Run the chosen Lean command before writing failing product tests or production code.
 
 Expected outcomes:
 
-- **Pass**: record the command, checked declaration, and any axiom-audit result; continue to `/tdd` or `/implement-plan`.
+- **Pass**: record the command, checked declaration, and any axiom-audit result; continue to `/implement-plan` with the accepted test-first choice.
 - **Expected formal failure**: record the failing theorem/example and why the failure demonstrates the design conflict.
 - **Unexpected conflict**: stop and update the plan before coding.
 - **Tooling failure**: distinguish missing toolchain/dependencies from a real principle conflict.

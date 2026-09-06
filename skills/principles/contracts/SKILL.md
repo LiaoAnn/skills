@@ -1,6 +1,6 @@
 ---
 name: contracts
-description: Contract-design principles for APIs, schemas, events, jobs, module exports, configuration, and other cross-boundary interfaces. Use when defining, changing, or reviewing a public interface or data shape that other code, users, services, jobs, or future versions may depend on.
+description: Use when defining or changing a cross-boundary interface whose consumers may require compatibility or migration handling.
 ---
 
 # Contracts
