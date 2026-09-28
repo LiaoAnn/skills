@@ -21,7 +21,7 @@ Before each new test, use the [test-necessity gate](test-judgment.md#is-this-tes
 
 Do not write all tests first and then all implementation. Vertical slices keep each test grounded in what the previous cycle revealed rather than an imagined implementation.
 
-Reading, baseline checks, and accepted formal model edits may precede RED. Behavior-changing production edits may not. Do not pause for user approval between cycles unless a new scope, design, or safety decision arises.
+Reading and baseline checks may precede RED. Behavior-changing production edits may not. Do not pause for user approval between cycles unless a new scope, design, or safety decision arises.
 
 ## Read Only What the Slice Needs
 
@@ -29,8 +29,6 @@ Reading, baseline checks, and accepted formal model edits may precede RED. Behav
 - [mocking.md](mocking.md): choosing which boundaries to isolate.
 - [refactoring.md](refactoring.md): refactoring a passing implementation.
 - [verification-placement.md](verification-placement.md): whether a typechecker, generator, compatibility check, or test owns a concern.
-
-Use `/property-based-testing` when a concrete property, generated input space, unknown counterexample class, and oracle can be named; retain the red-green cycle here.
 
 ## Completion Criterion
 

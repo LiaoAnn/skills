@@ -54,18 +54,7 @@ Prioritize:
 - Broken error handling or edge cases.
 - Validation gaps.
 
-Load only the principle needed for the risk the diff actually shows:
-
-- Use `/architecture` when files move, imports cross module boundaries, transport code grows, or authorization placement changes.
-- Use `/agentic-change-governance` when the diff includes unplanned design, ownership, convention, contract, cleanup, or rule changes.
-- Use `/codebase-stewardship` when the diff introduces new vocabulary, new patterns, duplicate helpers, parallel systems, or unusual file placement.
-- Use `/contracts` when public APIs, schemas, events, jobs, module exports, config, CLI behavior, URLs, or persisted data shapes change.
-- Use `/reviewable-change` when the diff mixes behavior with refactors, renames, formatting, generated output, or unrelated edits.
-- Use `/engineering-quality` when readability, comments, error context, local refactors, or algorithmic shape are the main risk.
-- Use `/agent-instruction-files` when the diff adds to or edits `AGENTS.md`, `CLAUDE.md`, or another agent instruction file.
-- Use `/property-based-testing` when a concrete property, generated input space, unknown counterexample class, and oracle can be named.
-
-Avoid style commentary that tooling will catch. If validation or CI is failing, distinguish failures caused by the diff from ambient or infrastructure failures; use `/ci-triage` when that classification needs its own pass.
+Avoid style commentary that tooling will catch. If validation or CI is failing, distinguish failures caused by the diff from ambient or infrastructure failures.
 
 ### 5. Rate Blocker or Hardening
 

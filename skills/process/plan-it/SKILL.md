@@ -10,7 +10,7 @@ Produce the smallest justified plan: the outcome, load-bearing decisions, affect
 ## Boundaries
 
 - Inspect only the instructions, code, tests, and configuration needed to resolve the planning decisions. Reuse current context rather than rereading it ceremonially.
-- Planning alone does not authorize product edits or persistent artifacts. Apply `/persistent-side-effects`; keep the plan in the conversation unless another location is approved.
+- Planning alone does not authorize product edits or persistent artifacts. Keep the plan in the conversation unless another location is approved.
 - Use the harness's planning support when it helps or is required. A short conversational plan is sufficient for a small, clear, low-risk change; no tool-availability announcement is needed.
 - If asked only for feasibility, report approach, impact, risks, and go/no-go, then stop.
 
@@ -20,8 +20,7 @@ Produce the smallest justified plan: the outcome, load-bearing decisions, affect
 2. **Approach.** Which existing interface or pattern fits, and why? Compare alternatives only when the choice matters. Do not turn the plan into code or an edit itinerary.
 3. **Validation.** Name observable behaviors and the cheapest checks that distinguish success from failure. Use [test judgment](../../principles/tdd/test-judgment.md) when deciding whether a new test adds coverage; do not load the TDD workflow merely to make that decision.
 4. **Test-first choice.** Honor the user's choice or established project policy. Otherwise choose an appropriate approach and state it; ask only when an unresolved preference or trade-off materially changes the work. If TDD is chosen, `/implement-plan` follows `/tdd` for behavior-changing slices.
-5. **Formal gate, only if applicable.** An existing documented checker covering this change, or an explicit user request, makes the gate required. Record its command, applicability, and stop condition. If required but unavailable, record the blocker and require an explicit user decision before implementation. The mere presence of `.lean` files does not establish applicability. Do not introduce a checker incidentally.
-6. **Authority and unknowns.** Surface new design decisions, destructive actions, or external effects needing approval under `/agentic-change-governance` and `/persistent-side-effects`. Ask only questions that block a sound plan.
+5. **Authority and unknowns.** Surface new design decisions, destructive actions, or external effects that need approval. Ask only questions that block a sound plan.
 
 ## Output
 
@@ -36,12 +35,10 @@ Scale detail to risk. For a small change, a paragraph covering goal, approach, s
 ## Risks and Open Decisions
 ```
 
-Add `## Formal Principle Check` only when applicable: `required` or `unavailable`, checker command, conflict condition, and any approval needed. Do not fill in a mandatory "not needed" section for unrelated work.
-
 Avoid repeating the same behavior inventory in several sections. The plan defines completion and genuine stop conditions, not approval checkpoints for every slice.
 
 ## Completion Criterion
 
-The plan states the proposed outcome, affected boundaries, approach, validation and test-first choice, and any unresolved risk or approval. Applicable formal gates are identified with their command or blocker. No implementation has occurred under planning-only authority.
+The plan states the proposed outcome, affected boundaries, approach, validation and test-first choice, and any unresolved risk or approval. No implementation has occurred under planning-only authority.
 
 Once accepted, continue with `/implement-plan`. If the user already authorized a clear, low-risk implementation, the brief plan need not introduce another approval round; new design decisions still require approval.

@@ -1,6 +1,6 @@
 # Devcontainer Lifecycle
 
-Read before starting, creating, stopping, or removing containers. Apply `/persistent-side-effects`; being reversible or labeled agent-owned does not override user or harness restrictions.
+Read before starting, creating, stopping, or removing containers. Starting, creating, stopping, or removing a container needs approval; being reversible or labeled agent-owned does not override user or harness restrictions.
 
 ## No Container Running
 

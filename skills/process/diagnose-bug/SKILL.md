@@ -1,6 +1,6 @@
 ---
 name: diagnose-bug
-description: Use when a product or performance bug needs reproduction and root-cause diagnosis; use ci-triage for unclassified check failures.
+description: Use when a product or performance bug needs reproduction and root-cause diagnosis.
 ---
 
 # Diagnose Bug
@@ -24,7 +24,7 @@ Separate observed facts from guesses.
 
 Find the fastest reliable way to reproduce or detect the bug.
 
-Choose the cheapest reliable signal for this symptom; these are options, not a required sequence. Creating a test or throwaway harness requires authority under `/persistent-side-effects`, even during diagnosis:
+Choose the cheapest reliable signal for this symptom; these are options, not a required sequence. Creating a test or throwaway harness is a file change; make it only when the request authorizes edits, even during diagnosis:
 
 1. Existing failing test or focused new regression test.
 2. Minimal command, script, or CLI invocation.
