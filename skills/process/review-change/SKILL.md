@@ -30,35 +30,37 @@ Collect only the context a reviewer needs:
 
 Do not rely on the implementer's reasoning as proof. Verify against the diff and source.
 
-### 3. Use Fresh Context When Possible
+### 3. Choose the Lenses
 
-Prefer a subagent or fresh context for the review, especially after substantial implementation work.
+Review through separate lenses, each owned by one reviewer. Read [lenses.md](lenses.md) for each lens's question, inputs, exclusions, and required evidence.
 
-The reviewer brief should ask for findings, not reassurance. Include the rating section below or a resolved, readable reference to it in the handoff:
+- **A single slice:** Correctness and Test Quality.
+- **A high-risk slice** (public contract, persisted data, shared module, production path) **or a finished feature:** add Design Fit and Simplicity. For a finished feature, run Design Fit over the whole branch, since slices that each fit can drift together.
+- **Security** whenever the diff touches authentication, authorization, untrusted input, or secrets.
+
+The user or plan may name a different set; follow it.
+
+### 4. Run Reviewers in Fresh Context
+
+Spawn one subagent per lens, in parallel, so no reviewer is anchored by the implementer's reasoning or by another lens. Each brief contains the diff scope, the plan or request, the lens definition from [lenses.md](lenses.md), and the rating rules below. Ask for findings, not reassurance:
 
 ```text
-Review this change for bugs, behavioral regressions, missing tests, violated project conventions, and maintainability risks. Prioritize concrete findings with file and line references. Do not summarize unless there are findings or notable residual risks.
-
-Use the supplied "Rate Blocker or Hardening" rules. Rate each finding independently, with a concrete trigger and evidence; do not force a mixture of severity levels.
+Review this change through the <lens> lens only. Report findings inside that lens, each with file and line, the concrete trigger, and the evidence the lens requires. Mark anything you could not back with that evidence as unconfirmed. Rate each finding with the supplied "Rate Blocker or Hardening" rules. Do not summarize the change.
 ```
 
-If subagents are unavailable, simulate the same stance: reread the diff from scratch before judging it.
+When TDD was required, the Test Quality reviewer also checks available RED-before-implementation evidence and reports missing evidence as unknown rather than inferring it from the final diff.
 
-### 4. Review for Real Risks
+If subagents are unavailable, run the lenses one at a time, rereading the diff from scratch for each.
 
-Prioritize:
+### 5. Confirm Before Reporting
 
-- Incorrect behavior or missed requirements.
-- Regressions in nearby flows.
-- Missing or weak tests — use [test judgment](../../principles/tdd/test-judgment.md), without loading the TDD workflow just for review. Audit changed behaviors and list uncovered ones; a gap is a Blocker only when the behavior would be a Blocker if broken, otherwise Hardening. When TDD was required, also check available RED-before-implementation evidence; report missing evidence as unknown rather than inferring it from the final diff.
-- Broken error handling or edge cases.
-- Validation gaps.
+Merge duplicate findings across lenses. Then confirm every candidate Blocker yourself — rerun its reproduction or retrace its path. A reviewer's claim is a lead, not a result. A finding that does not survive confirmation is not reported; count it in one line ("N unconfirmed findings omitted") so the user can ask for them.
 
-Avoid style commentary that tooling will catch. If validation or CI is failing, distinguish failures caused by the diff from ambient or infrastructure failures.
+If validation or CI is failing, distinguish failures caused by the diff from ambient or infrastructure failures.
 
-### 5. Rate Blocker or Hardening
+### 6. Rate Blocker or Hardening
 
-Two levels only: **Blocker** (fix before merge) and **Hardening** (recorded under Residual Risk, no fix demanded).
+Two levels only: **Blocker** (fix before merge) and **Hardening** (recorded under Residual Risk, no fix demanded). A Hardening item also needs a concrete trigger — who does what, under which real condition. "Could theoretically race" or "if someone later…" is not a trigger; drop the item.
 
 State the trigger in one sentence, using only actions the product supports. A defect that occurs every time the path runs is a Blocker without further reachability analysis, subject to the impact gate below; a path nothing reaches is not a path. The rest of this section applies only where the trigger depends on ordering, coincidence, or a particular input.
 
@@ -72,7 +74,7 @@ Testability is not the filter. A determined reviewer can mock almost any scenari
 
 Rate each finding independently against reachability, impact, and evidence. All findings may legitimately have the same rating; never promote or downgrade one to force a distribution.
 
-### 6. Report Findings First
+### 7. Report Findings First
 
 Findings holds Blockers only; Hardening goes under Residual Risk. Each Blocker should include:
 
@@ -81,7 +83,7 @@ Findings holds Blockers only; Hardening goes under Residual Risk. Each Blocker s
 - The concrete trigger — who does what to hit it.
 - Suggested fix or verification.
 
-If there are no blockers, say the change passes and put the rest under Residual Risk. Do not manufacture a blocker to justify the review.
+If there are no blockers, say the change passes and list only triggered Hardening items under Residual Risk. Do not manufacture a blocker to justify the review.
 
 ## Output
 
@@ -92,7 +94,7 @@ Use this structure:
 
 ## Open Questions
 
-## Residual Risk (includes Hardening)
+## Residual Risk (triggered Hardening only; end with the omitted-unconfirmed count)
 
 ## Validation Notes
 ```
@@ -101,6 +103,6 @@ Skip empty sections except when "no blockers" is the main result.
 
 ## Completion Criterion
 
-The review is complete when the diff has been checked against the intended behavior, relevant project patterns, and validation evidence, and every blocker has been reported with its concrete trigger, separately from Hardening items in Residual Risk.
+The review is complete when every selected lens has reported, every reported Blocker was confirmed by rerunning or retracing it and carries its concrete trigger and lens evidence, every Hardening item names a concrete trigger, and unconfirmed findings appear only as an omitted count.
 
 No blockers means the change passes. Stop there rather than opening another pass over code the review already covered.
