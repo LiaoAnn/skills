@@ -1,6 +1,6 @@
 # Process Skills
 
-**Process** skills encode *how to move through a task*: understand, plan, implement, diagnose, review, ship. They stay project-agnostic and orchestrate the work.
+**Process** skills encode *how to move through a task*: understand, plan, implement, diagnose, review. They stay project-agnostic and orchestrate the work.
 
 When a process step needs reusable craft judgment, reference a **principles** skill such as `/tdd` or `/architecture`. When the work touches a specific framework, package, tool, or repo, reference the relevant **stacks** skill instead of inlining stack details.
 

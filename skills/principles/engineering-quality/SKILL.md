@@ -7,16 +7,6 @@ description: Use when a change needs judgment about readability, error context, 
 
 Prefer code that is boring to read, easy to debug, and hard to misuse.
 
-## Choose Clarity Over Cleverness
-
-Optimize first for the next maintainer's understanding. A slightly longer implementation is often better when it exposes names, intermediate values, and control flow.
-
-Before choosing a clever abstraction or dense expression, ask:
-
-- Does this solve the current problem, or a speculative future one?
-- Would a direct version be easier to review?
-- Is the abstraction hiding real complexity or only moving it?
-
 ## Comment Why, Not What
 
 Comments should explain context the code cannot express:

@@ -22,9 +22,9 @@ Process skills reference principles when they need general craft judgment. Stack
 
 ```
 skills/
-  process/     ← workflows: study, plan, implement, diagnose, CI triage, review, ship
+  process/     ← workflows: study, plan, implement, diagnose, CI triage, review
   principles/  ← cross-cutting craft: tdd, architecture, quality
   stacks/      ← concrete stacks/tools/repos: e.g. frontend performance, Drizzle ORM, Effect TS
 ```
 
-**[process](./skills/process/README.md)** encodes task flows and stays project-agnostic. **[principles](./skills/principles/README.md)** holds reusable craft judgment such as TDD, architecture, and engineering quality. **[stacks](./skills/stacks/README.md)** holds concrete guidance for specific packages, frameworks, tools, and repos. A process skill like `/implement-plan` calls `/tdd`; `/review-change` checks boundaries against `/architecture` and `/engineering-quality`; a future stack skill like `drizzle-orm` should apply those principles to Drizzle-specific APIs and pitfalls.
+**[process](./skills/process/README.md)** encodes task flows and stays project-agnostic. **[principles](./skills/principles/README.md)** holds reusable craft judgment such as TDD, architecture, and engineering quality. **[stacks](./skills/stacks/README.md)** holds concrete guidance for specific packages, frameworks, tools, and repos. A process skill like `/implement-plan` calls `/tdd`; `/review-change` checks boundaries against `/architecture` and `/engineering-quality`; the `drizzle-orm` stack skill applies those principles to Drizzle-specific APIs and pitfalls.
