@@ -22,9 +22,9 @@ For a clear, low-risk implementation request, use a brief inline plan and procee
 
 ## Bug Flow: Symptom → Diagnosis → Fix
 
-Use this route when the user reports broken, failing, confusing, slow, or unexpected behavior.
+Use this route when behavior or an error contradicts expectations and the cause is not verified: a report of broken, slow, or surprising behavior, a pasted error or log, a "why does this happen" question, or a fix that did not work.
 
-1. **`/diagnose-bug`** — restate the symptom, build or identify a reproduction path, trace the relevant code path, explain the likely root cause, and define acceptance criteria for the fix.
+1. **`/diagnose-bug`** — restate the symptom, decide whether it is a defect, intended design, or environment, reproduce it, and confirm the cause before any fix.
 2. **`/plan-it`** — plan the fix once the cause and validation path are clear.
 3. **`/implement-plan`** — implement the fix and run the validation loop.
 4. **`/review-change`** — review from fresh context when requested or warranted by the fix's risk.

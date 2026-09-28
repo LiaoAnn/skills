@@ -18,10 +18,10 @@ Process skills also split by invocation — who can reach them.
 
 **Model-invoked**
 
-- **[plan-it](./plan-it/SKILL.md)** — Resolve outcome, scope, approach, and validation before implementation. Scales from an inline plan to a structured design. Feasibility-only requests end at go/no-go.
-- **[implement-plan](./implement-plan/SKILL.md)** — Carry accepted work through relevant validation and inspection without per-slice or per-file approval. Stop for unresolved blockers or new authority/design decisions; Git and other protected actions need specific approval. Uses `/tdd` only when test-first was selected.
-- **[diagnose-bug](./diagnose-bug/SKILL.md)** — Diagnose product/runtime bugs before fixing. Builds a reproduction path, traces the code, generates ranked hypotheses, defines acceptance criteria.
-- **[review-change](./review-change/SKILL.md)** — Review a diff from a fresh reviewer perspective. Prefers a subagent or fresh context. Separates blockers from hardening and defaults unknowns to hardening.
+- **[plan-it](./plan-it/SKILL.md)** — Plan from Why to How to What: user value first, an abstract approach in the current architecture, then ordered slices that each carry a real-system acceptance check.
+- **[implement-plan](./implement-plan/SKILL.md)** — Run each slice through red, implement, green, mechanical checks, real-system acceptance, multi-lens review, and commit before the next.
+- **[diagnose-bug](./diagnose-bug/SKILL.md)** — For unexplained behavior or errors: classify defect vs. intended design vs. environment, reproduce before editing, test hypotheses, and verify the fix with the same reproduction.
+- **[review-change](./review-change/SKILL.md)** — Parallel fresh-context reviewers, one per lens (correctness, test quality, design fit, simplicity, security); every Blocker is confirmed before it is reported.
 
 ## Flows
 
