@@ -41,7 +41,7 @@ If shell/PATH resolution fails, read [resolution.md](resolution.md#shell-and-exe
 
 ## Lifecycle and Safety Boundaries
 
-If none is running, or starting, creating, stopping, or removing a container is needed, read [lifecycle.md](lifecycle.md) **before acting**. Do not fall back to the host. Apply `/persistent-side-effects` to environment changes and command effects; container execution does not establish test isolation or authorize production access.
+If none is running, or starting, creating, stopping, or removing a container is needed, read [lifecycle.md](lifecycle.md) **before acting**. Do not fall back to the host. Get approval before environment changes or commands with persistent effects; container execution does not establish test isolation or authorize production access.
 
 Never remove a container without approval naming that container. An `agent` ownership label is not removal authority and does not prove exclusive use; the editor may share a compose container.
 

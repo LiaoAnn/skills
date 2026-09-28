@@ -15,13 +15,15 @@ Before each new test, use the [test-necessity gate](test-judgment.md#is-this-tes
 
 ## Red-Green-Refactor
 
-1. Write one focused test for an observable behavior. Run it and confirm RED for the expected reason, not an unrelated compile or setup failure.
+1. Write one focused test for an observable behavior. Start outside-in: the first test sits at the level where the behavior is observed — an integration, CLI, or end-to-end test when the environment can reach it — and narrower tests follow only as the implementation needs them. Run it and confirm RED for the expected reason, not an unrelated compile or setup failure.
 2. Write the minimal production change that makes it GREEN, then run the test.
 3. Refactor while GREEN, rerunning affected tests. Repeat for the next behavior until the accepted target is covered.
 
+When the tests come from a separate test author, the implementer takes them as given: it does not edit or weaken them, and a test it believes is wrong goes back to the author or the user with the reason.
+
 Do not write all tests first and then all implementation. Vertical slices keep each test grounded in what the previous cycle revealed rather than an imagined implementation.
 
-Reading, baseline checks, and accepted formal model edits may precede RED. Behavior-changing production edits may not. Do not pause for user approval between cycles unless a new scope, design, or safety decision arises.
+Reading and baseline checks may precede RED. Behavior-changing production edits may not. Do not pause for user approval between cycles unless a new scope, design, or safety decision arises.
 
 ## Read Only What the Slice Needs
 
@@ -29,8 +31,6 @@ Reading, baseline checks, and accepted formal model edits may precede RED. Behav
 - [mocking.md](mocking.md): choosing which boundaries to isolate.
 - [refactoring.md](refactoring.md): refactoring a passing implementation.
 - [verification-placement.md](verification-placement.md): whether a typechecker, generator, compatibility check, or test owns a concern.
-
-Use `/property-based-testing` when a concrete property, generated input space, unknown counterexample class, and oracle can be named; retain the red-green cycle here.
 
 ## Completion Criterion
 

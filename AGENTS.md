@@ -19,9 +19,9 @@ skills/
 ```
 
 Skills split into three categories:
-- `process` — workflow and orchestration skills, project-agnostic: study, plan, implement, diagnose, review, ship.
-- `principles` — cross-cutting concepts, standards, and judgment that apply across stacks: e.g. `tdd`, `architecture`.
-- `stacks` — concrete practices for a specific package, framework, tool, or repo: e.g. frontend performance, `drizzle-orm`, `effect-ts`, a given monorepo's conventions.
+- `process` — workflow and orchestration skills, project-agnostic: plan, implement, diagnose, review.
+- `principles` — cross-cutting concepts, standards, and judgment that apply across stacks: e.g. `tdd`.
+- `stacks` — concrete practices for a specific package, framework, tool, or repo: e.g. `devcontainer-exec`, `drizzle-orm`, `knip`.
 
 When adding a skill, place it by this axis: a workflow of steps → `process`; cross-cutting "what makes this good" judgment → `principles`; "how to do this well in stack/tool/repo Y" → `stacks`.
 

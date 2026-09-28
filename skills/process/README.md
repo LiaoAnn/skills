@@ -1,8 +1,8 @@
 # Process Skills
 
-**Process** skills encode *how to move through a task*: understand, plan, implement, diagnose, review, ship. They stay project-agnostic and orchestrate the work.
+**Process** skills encode *how to move through a task*: understand, plan, implement, diagnose, review. They stay project-agnostic and orchestrate the work.
 
-When a process step needs reusable craft judgment, reference a **principles** skill such as `/tdd` or `/architecture`. When the work touches a specific framework, package, tool, or repo, reference the relevant **stacks** skill instead of inlining stack details.
+When a process step needs reusable craft judgment, reference a **principles** skill such as `/tdd`. When the work touches a specific framework, package, tool, or repo, reference the relevant **stacks** skill instead of inlining stack details.
 
 ## Skills Reference
 
@@ -14,32 +14,24 @@ Process skills also split by invocation — who can reach them.
 
 **User-invoked**
 
-- **[ask-me](./ask-me/SKILL.md)** — Router. Type `/ask-me` when unsure which workflow fits. Maps your task to the right flow: change, inquiry, bug, or review.
+- **[ask-me](./ask-me/SKILL.md)** — Router. Type `/ask-me` when unsure which workflow fits. Maps your task to the right flow: change, bug, or review.
 
 **Model-invoked**
 
-- **[study-repo](./study-repo/SKILL.md)** — Understand a codebase or external package before acting. Separates facts, inferences, and unknowns.
-- **[plan-it](./plan-it/SKILL.md)** — Resolve outcome, scope, approach, and validation before implementation. Scales from an inline plan to a structured design; formal gates appear only when applicable. Feasibility-only requests end at go/no-go.
-- **[implement-plan](./implement-plan/SKILL.md)** — Carry accepted work through relevant validation and inspection without per-slice or per-file approval. Stop for unresolved blockers or new authority/design decisions; Git and other protected actions need specific approval. Uses `/tdd` only when test-first was selected.
-- **[diagnose-bug](./diagnose-bug/SKILL.md)** — Diagnose product/runtime bugs before fixing. Builds a reproduction path, traces the code, generates ranked hypotheses, defines acceptance criteria.
-- **[ci-triage](./ci-triage/SKILL.md)** — Classify failing CI/local validation checks, reproduce the cheapest reliable signal, apply safe bounded fixes, and hand off implementation or bug diagnosis when needed.
-- **[review-change](./review-change/SKILL.md)** — Review a diff from a fresh reviewer perspective. Prefers a subagent or fresh context. Separates blockers from hardening and defaults unknowns to hardening.
+- **[plan-it](./plan-it/SKILL.md)** — Plan from Why to How to What: user value first, an abstract approach in the current architecture, then ordered slices that each carry a real-system acceptance check.
+- **[implement-plan](./implement-plan/SKILL.md)** — Run each slice through red, implement, green, mechanical checks, real-system acceptance, multi-lens review, and commit before the next.
+- **[diagnose-bug](./diagnose-bug/SKILL.md)** — For unexplained behavior or errors: classify defect vs. intended design vs. environment, reproduce before editing, test hypotheses, and verify the fix with the same reproduction.
+- **[review-change](./review-change/SKILL.md)** — Parallel fresh-context reviewers, one per lens (correctness, test quality, design fit, simplicity, security); every Blocker is confirmed before it is reported.
 
 ## Flows
 
 These are routes, not mandatory ceremonies. Reuse existing understanding; a clear, low-risk implementation request can proceed with an inline plan. A handoff between skills is not a new user-approval checkpoint unless authority or design changes. Load independent review when it adds value.
 
 **Change code**
-`/study-repo` → `/plan-it` → `/implement-plan` → `/review-change`
+`/plan-it` → `/implement-plan` → `/review-change`
 
 **Fix a bug**
 `/diagnose-bug` → `/plan-it` → `/implement-plan` → `/review-change`
-
-**Triage failing checks**
-`/ci-triage` → (if non-mechanical code change needed) `/implement-plan` or `/plan-it`; if product behavior bug, `/diagnose-bug`
-
-**Understand before acting**
-`/study-repo` → (if change needed) `/plan-it`
 
 **Review only**
 `/review-change`

@@ -15,7 +15,7 @@ Apply Drizzle-specific guidance only to the affected surface. Pure application l
 
 A schema change that alters database structure needs both schema and migration guidance. Do not load testing setup merely because a column's TypeScript type changes.
 
-Use `/contracts` when compatibility needs a decision, and [test judgment](../../principles/tdd/test-judgment.md) when deciding coverage. Invoke `/tdd` only if test-first implementation was selected. Driver limitations and project configuration still matter; do not assume all drivers behave alike.
+Use [test judgment](../../principles/tdd/test-judgment.md) when deciding coverage. Invoke `/tdd` only if test-first implementation was selected. Driver limitations and project configuration still matter; do not assume all drivers behave alike.
 
 ## Completion Criterion
 
