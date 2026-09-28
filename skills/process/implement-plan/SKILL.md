@@ -5,41 +5,49 @@ description: Use when executing an accepted implementation plan through validati
 
 # Implement Plan
 
-Carry the accepted outcome through implementation, relevant validation, and self-review without pausing after the first passing slice.
+Carry the accepted plan through its slices, one at a time. A slice is done when its outcome has been demonstrated on the real system and reviewed — not when its checks turn green.
 
 ## Preconditions and Authority
 
-- Start from an accepted plan. A clear, low-risk implementation request can carry a brief inline plan; use `/plan-it` when material decisions remain unresolved.
-- Necessary in-scope source and test changes do not need per-file approval. Get specific approval before Git actions, destructive actions, or writes to shared or production systems, and before work outside the accepted scope or a new design decision.
-- Use relevant code and tests to confirm the plan, reusing evidence already gathered. Preserve unrelated user work.
-- Adapt implementation details when new evidence preserves the accepted outcome and boundaries. Stop for a decision only when evidence invalidates a load-bearing design choice or changes scope, public behavior, ownership, or risk beyond what was approved.
+- Start from an accepted plan with slices. A clear, low-risk request can carry a brief inline plan with a single slice; use `/plan-it` when the Why, the approach, or the slices are unresolved.
+- Necessary in-scope source and test changes do not need per-file approval. Get specific approval before Git actions the plan did not authorize, destructive actions, or writes to shared or production systems, and before work outside the accepted scope or a new design decision.
+- Preserve unrelated user work. Adapt details when new evidence preserves the accepted outcome and boundaries; stop for a decision when evidence invalidates a load-bearing choice.
 
-## Implement and Validate
+## The Slice Loop
 
-Work in logical slices. For each, make the change, run the checks that provide useful evidence, and self-review against the accepted outcome. Progress updates are informational, not requests for approval; continue until all slices are complete or a genuine blocker remains.
+Run every slice through these steps in order. A failing step sends the slice back to implementation; do not advance past it.
 
-When `TDD: yes`, use `/tdd`. Behavior-changing production edits follow a focused test that ran RED for the expected reason. [Test judgment](../../principles/tdd/test-judgment.md) owns exemptions; do not manufacture a test just to satisfy the workflow. Reading and baseline checks may precede RED.
+1. **Red.** When `TDD: yes`, follow `/tdd`, working outside-in: the first failing test sits at the level of the slice's Acceptance (an integration test against the real route, the CLI invoked end to end, an e2e flow) wherever the test environment can reach it; narrower tests follow as the implementation needs them. [Test judgment](../../principles/tdd/test-judgment.md) decides when a slice is owed no new test; record that exemption instead of manufacturing one. For a bug, reproduce the failure first — a fix without a reproduction is a guess.
 
-Choose validation by impact and evidence, not a fixed checklist:
+   For a **high-risk slice** — one that changes a public contract, persisted data, a shared module, or a production path — the tests come from a separate test-author subagent. Its brief holds only the plan's Why, the slice's Outcome and Acceptance, and the public interface — never the implementation approach. It writes the tests outside-in, runs them RED for the expected reason, and hands them back. The implementer must not edit those tests. If it believes one is wrong, it stops and returns the test with its reason to the test author or the user, who decides.
+2. **Implement** the smallest change that delivers the slice's outcome within its boundary.
+3. **Green.** Run the slice's tests and the tests near the change.
+4. **Mechanical checks.** Run the project's typecheck, lint, format, and dead-code checks — the commands the project declares. They must pass.
+5. **Acceptance.** Demonstrate the slice's outcome on the real system as the plan's Acceptance describes. Use the project's verify skill if it has one; otherwise drive it by surface: a web flow in a browser with screenshots of the changed screens, a CLI by running the command, a service by a real request, infrastructure by deploying and exercising it. Capture the command and output, or the screenshot. Tests that stub the boundary under change are not acceptance. If the real system cannot be reached, the result is **inconclusive** — say so and why; never report it as passed.
+6. **Review.** Run `/review-change` on the slice's diff with the lenses it selects for the slice's risk. Fix confirmed Blockers and rerun steps 3–5 for what the fix touched.
+7. **Commit** the slice as its own commit if the plan authorized per-slice commits; otherwise report it ready and continue.
 
-- Run the narrowest check that detects the plausible failure: a focused test, typecheck, lint, generator check, or integration path.
-- Run broader checks when affected boundaries, shared code, project requirements, or unresolved risk justify them—not merely because another slice finished.
-- If the accepted outcome includes running or inspecting the application, do that; a green unit test alone does not complete it.
-- Fix failures caused by this change within accepted scope and rerun affected checks. Do not chase unrelated failures or repeat unchanged checks without new evidence.
+If any step shows behavior nobody expected and its cause is not obvious, apply `/diagnose-bug` before editing further: reproduce, test a hypothesis, then fix and rerun the same signal. The behavior may also be intended design; confirm that before "fixing" it.
 
-Stop only for unresolved failures, missing access, or an authority/design decision that cannot be resolved within scope. Do not weaken tests or rules to finish.
+Then start the next slice. Progress notes are informational, not approval requests.
+
+If a slice grows past its boundary, stop and re-cut it with the user rather than letting the diff absorb the extra work. When the last slice is done, run `/review-change` once over the whole feature with the finished-feature lenses.
 
 ## Output
 
-Report:
+Report per slice, then overall:
 
-- Changes and completed outcomes.
-- Validation commands and results, including blocked or unrun checks.
-- Remaining risks and deviations from the plan.
-- Any slice exempted from a new test, with the existing test/check that owns its concern—or explicitly that none does.
+```markdown
+### Slice <n>: <outcome>
+- Tests: <author: implementer / test-author subagent>, <RED evidence or exemption reason>, <GREEN command and result>, <disputed tests and their resolution>
+- Checks: <commands and results>
+- Acceptance: <passed / failed / inconclusive> — <command, output, or screenshot path>
+- Review: <lenses run>, <Blockers fixed>, <residual risk>
+- Commit: <hash, or "not committed">
+```
 
-Recommend `/review-change` when an independent pass would add value. Do not stage or commit unless specifically approved.
+Close with remaining risks, deviations from the plan, and anything left inconclusive.
 
 ## Completion Criterion
 
-All accepted outcomes are implemented and inspected where requested; relevant validation passed or has a stated blocker; no temporary debugging code remains; and every side effect stayed within approved authority. A blocked result is reported as blocked, not as a completed implementation.
+Every slice has a recorded test result or exemption, high-risk slices were tested by a separate test author whose tests the implementer did not edit, passing mechanical checks, an acceptance result with captured evidence, and a review with no unresolved confirmed Blockers; the finished-feature review ran; each slice is committed or reported uncommitted per the plan; nothing inconclusive is reported as passed; no temporary debugging code remains; and every side effect stayed within approved authority.
