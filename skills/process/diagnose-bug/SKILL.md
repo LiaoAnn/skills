@@ -13,7 +13,7 @@ These four are the point of the skill; the process below exists to pass them.
 
 1. **Reproduce before editing.** No product edit until the symptom has been observed through a repeatable signal. If it cannot be reproduced, say what was tried and what is needed — do not fix by guess.
 2. **Hypothesis before change.** Each candidate cause is stated as a falsifiable prediction and tested before any fix is written.
-3. **Verify with the same signal.** A fix is confirmed by rerunning the reproduction and seeing the symptom gone — not by tests passing elsewhere.
+3. **Verify with the same signal.** A fix is confirmed by rerunning the reproduction and seeing the symptom gone. Apply `/verification-evidence`.
 4. **Stay on this bug.** Other problems found along the way are reported, not fixed in the same change.
 
 ## Process
@@ -73,7 +73,7 @@ When a fix was requested and the cause is confirmed, make the smallest change th
 - Reproduction: <signal and result, or what blocked it>
 - Cause: <confirmed hypothesis and the evidence>
 - Fix: <change made, or "diagnosis only">
-- Verification: <same signal rerun and result>
+- Verification: <same signal rerun, its evidence kind, runs and results, uncovered conditions — or "unverified" with why it could not be rerun or did not settle>
 - Other issues found: <reported, not fixed>
 ```
 

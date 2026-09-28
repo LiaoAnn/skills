@@ -20,7 +20,7 @@ skills/
 
 Skills split into three categories:
 - `process` — workflow and orchestration skills, project-agnostic: plan, implement, diagnose, review.
-- `principles` — cross-cutting concepts, standards, and judgment that apply across stacks: e.g. `tdd`.
+- `principles` — cross-cutting concepts, standards, and judgment that apply across stacks: e.g. `tdd`, `verification-evidence`.
 - `stacks` — concrete practices for a specific package, framework, tool, or repo: e.g. `devcontainer-exec`, `drizzle-orm`, `knip`.
 
 When adding a skill, place it by this axis: a workflow of steps → `process`; cross-cutting "what makes this good" judgment → `principles`; "how to do this well in stack/tool/repo Y" → `stacks`.
@@ -77,6 +77,7 @@ Rules:
 **A good skill avoids:**
 - Fuzzy completion: "when the work looks good" is not a criterion.
 - Missing guard conditions: if the skill assumes a plan exists, say so and name the fallback skill.
+- Principles written as an ideal. A principle states the general rule that holds at every step that invokes it; the required strength, thresholds, formats, and surface specifics belong to the calling skill. Before adding or changing a principle, walk each caller literally and confirm every rule is satisfiable there.
 - Generic coding advice the model already knows. Delete it rather than moving it into always-loaded instructions; retain project-specific constraints and deliberate user policies.
 - Describing the same trigger in both a model-invoked skill and a user-invoked router — double-firing wastes context.
 - Accumulating scope across versions. When a skill grows beyond one responsibility, split rather than expand.

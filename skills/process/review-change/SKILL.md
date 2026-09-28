@@ -54,7 +54,7 @@ If subagents are unavailable, run the lenses one at a time, rereading the diff f
 
 ### 5. Confirm Before Reporting
 
-Merge duplicate findings across lenses. Then confirm every candidate Blocker yourself — rerun its reproduction or retrace its path. A reviewer's claim is a lead, not a result. A finding that does not survive confirmation is not reported; count it in one line ("N unconfirmed findings omitted") so the user can ask for them.
+Merge duplicate findings across lenses. Then confirm every candidate Blocker yourself with `/verification-evidence`: rerun its reproduction where possible, otherwise retrace its path line by line. A finding that does not survive confirmation is not reported; count it in one line ("N unconfirmed findings omitted") so the user can ask for them.
 
 If validation or CI is failing, distinguish failures caused by the diff from ambient or infrastructure failures.
 

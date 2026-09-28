@@ -9,3 +9,4 @@ Process skills in `process/` reference these at the relevant step (e.g. `/implem
 **Model-invoked**
 
 - **[tdd](./tdd/SKILL.md)** — Test-first red-green-refactor in vertical slices. For test necessity or coverage without TDD, read [test judgment](./tdd/test-judgment.md) directly; it links to verification placement, quality examples, and mocking guidance.
+- **[verification-evidence](./verification-evidence/SKILL.md)** — What may stand behind a claim of working, fixed, or broken: name the kind of evidence (observed, executed, traced), use checks that could fail, keep a rerunnable record, and never present unchecked claims as settled. Callers set the required strength.
