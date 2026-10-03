@@ -12,6 +12,8 @@
     "./skills/principles/verification-evidence",
     "./skills/stacks/devcontainer-exec",
     "./skills/stacks/drizzle-orm",
-    "./skills/stacks/knip"
+    "./skills/stacks/knip",
+    "./skills/process/t3-remote-setup",
+    "./skills/process/sync-skills"
   ]
 }

@@ -1,6 +1,6 @@
 # Process Skills
 
-**Process** skills encode *how to move through a task*: understand, plan, implement, diagnose, review. They stay project-agnostic and orchestrate the work.
+**Process** skills encode *how to move through a task*: understand, plan, implement, diagnose, review. They orchestrate the work. Most stay project-agnostic; a user-invoked operation bound to one tool (such as `/sync-skills`) is still a process.
 
 When a process step needs reusable craft judgment, reference a **principles** skill such as `/tdd`. When the work touches a specific framework, package, tool, or repo, reference the relevant **stacks** skill instead of inlining stack details.
 
@@ -17,6 +17,8 @@ Process skills also split by invocation — who can reach them.
 - **[ask-me](./ask-me/SKILL.md)** — Router. Type `/ask-me` when unsure which workflow fits. Maps your task to the right flow: change, bug, or review.
 - **[create-verification-skill](./create-verification-skill/SKILL.md)** — Type `/create-verification-skill` in a project to generate its `verify-<project>` skill: discovered surfaces, external services, and environments; launch, doctor, drive, evidence, cleanup; and a feature map.
 - **[maintain-verification-skill](./maintain-verification-skill/SKILL.md)** — Type `/maintain-verification-skill` to audit a project's verify skill against source and the live system, and ship only proven corrections.
+- **[sync-skills](./sync-skills/SKILL.md)** — Type `/sync-skills` to update global skills installed with the skills.sh CLI and remove those their source deleted, after confirmation.
+- **[t3-remote-setup](./t3-remote-setup/SKILL.md)** — Type `/t3-remote-setup <host>` to prepare an SSH host so the T3 Code desktop app connects on the first try, without stray servers or SSH connections.
 
 **Model-invoked**
 
