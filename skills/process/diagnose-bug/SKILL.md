@@ -35,7 +35,7 @@ Design and environment findings end here with an explanation, the evidence, and 
 
 ### 3. Build a Feedback Loop
 
-Find the fastest reliable signal that shows the user's exact symptom, not merely nearby code. Choose what fits; these are options, not a sequence:
+Find the fastest reliable signal that shows the user's exact symptom, not merely nearby code. When the symptom is on a surface the repo's verify skill drives, run its Doctor and reach the symptom through its Launch and Drive steps. Choose what fits; these are options, not a sequence:
 
 1. Existing failing test or focused new regression test.
 2. Minimal command, script, or CLI invocation.
@@ -63,7 +63,7 @@ Test the strongest first, one variable at a time. When the user asks whether an 
 
 ### 6. Fix and Verify
 
-When a fix was requested and the cause is confirmed, make the smallest change that removes it, then rerun the step 3 signal and show the symptom is gone. Keep a regression test when one can catch the cause. If the fix needs a design decision or reaches beyond this bug, stop and hand off to `/plan-it`.
+When a fix was requested and the cause is confirmed, make the smallest change that removes it, then rerun the step 3 signal and show the symptom is gone. Keep a regression test when one can catch the cause. If the repo has a verify skill, update in the same diff every feature file whose `Where it lives` paths the fix touches, and any launch step or gotcha this diagnosis discovered. If the fix needs a design decision or reaches beyond this bug, stop and hand off to `/plan-it`.
 
 ## Output
 
@@ -75,8 +75,9 @@ When a fix was requested and the cause is confirmed, make the smallest change th
 - Fix: <change made, or "diagnosis only">
 - Verification: <same signal rerun, its evidence kind, runs and results, uncovered conditions — or "unverified" with why it could not be rerun or did not settle>
 - Other issues found: <reported, not fixed>
+- Verify skill: <what this diagnosis had to discover about running the project, and — if a fix was made — the feature-file updates in the fix's diff; or "nothing new">
 ```
 
 ## Completion Criterion
 
-The report classifies the behavior with evidence. For design or environment, the explanation and next step are stated and no product code changed. For a defect: the symptom was reproduced (or the blocker is stated), the cause is a tested hypothesis, and — if a fix was requested — the same reproduction was rerun after the fix and no longer shows the symptom, with any other issues reported but not fixed.
+The report classifies the behavior with evidence. For design or environment, the explanation and next step are stated and no product code changed. For a defect: the symptom was reproduced (or the blocker is stated), the cause is a tested hypothesis, and — if a fix was requested — the same reproduction was rerun after the fix and no longer shows the symptom, the verify skill was updated as step 6 requires, and any other issues are reported but not fixed.

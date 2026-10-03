@@ -15,6 +15,8 @@ Process skills also split by invocation — who can reach them.
 **User-invoked**
 
 - **[ask-me](./ask-me/SKILL.md)** — Router. Type `/ask-me` when unsure which workflow fits. Maps your task to the right flow: change, bug, or review.
+- **[create-verification-skill](./create-verification-skill/SKILL.md)** — Type `/create-verification-skill` in a project to generate its `verify-<project>` skill: discovered surfaces, external services, and environments; launch, doctor, drive, evidence, cleanup; and a feature map.
+- **[maintain-verification-skill](./maintain-verification-skill/SKILL.md)** — Type `/maintain-verification-skill` to audit a project's verify skill against source and the live system, and ship only proven corrections.
 
 **Model-invoked**
 

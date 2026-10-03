@@ -22,7 +22,7 @@ The request must supply three things: the desired capability, the acceptance sta
 
 ## 2. Decide the How
 
-Choose the approach in terms of the current system: which existing module, interface, or pattern it extends, what stays unchanged, and which trade-offs matter. Compare alternatives only when the choice matters. Stay abstract — no code, pseudo-code, or edit itinerary.
+If the repo has a verify skill, find the feature the request names in its feature map; its `Where it lives` section is the starting point for the code and its `Driving it` section for acceptance. Choose the approach in terms of the current system: which existing module, interface, or pattern it extends, what stays unchanged, and which trade-offs matter. Compare alternatives only when the choice matters. Stay abstract — no code, pseudo-code, or edit itinerary.
 
 When the approach depends on something not yet observed — an external endpoint, a GPU path, a third-party permission, a deploy target — check it for real before committing the plan: one call or run that shows it works. A blocked dependency found here costs a question; found after building, it costs the build.
 
@@ -40,7 +40,7 @@ A slice that serves no part of the Why is cut, not deferred into the same branch
 ## 4. Settle Validation and Authority
 
 - **Test-first.** Honor the user's choice or project policy; otherwise choose and state it. If TDD is chosen, `/implement-plan` follows `/tdd` for behavior-changing slices. Use [test judgment](../../principles/tdd/test-judgment.md) to decide whether a new test adds coverage.
-- **Project verification.** Name the project's verify skill if it has one; otherwise state how acceptance will be driven for this kind of app.
+- **Project verification.** Name the project's verify skill if it has one; otherwise state how acceptance will be driven for this kind of app, and suggest the user run `/create-verification-skill`.
 - **Commits.** Record whether each slice is committed automatically after it passes, or only on request.
 - **Approvals.** Surface new design decisions, destructive actions, or effects on shared or production systems that need approval. Ask only questions that block a sound plan.
 

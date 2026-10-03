@@ -6,10 +6,10 @@ No lens reports what tooling already enforces (format, lint, types, dead exports
 
 ## Correctness
 
-- **Question:** Does the changed behavior do what the plan's outcome and acceptance say, including edge cases and error paths? Does it break any caller?
-- **Reads:** the diff, callers of changed symbols, the plan or brief.
+- **Question:** Does the changed behavior do what the plan's outcome and acceptance say, including edge cases and error paths? Does it break any caller? Where the repo has a verify skill, does its feature map still describe the changed behavior truthfully?
+- **Reads:** the diff, callers of changed symbols, the plan or brief, and the verify skill's feature file for any user-facing behavior the diff changes.
 - **Not its job:** style, design preference, test quality.
-- **Evidence:** a concrete trigger plus a failing test or command that reproduces it; when execution is impossible, a line-by-line trace of the path from entry to wrong result.
+- **Evidence:** a concrete trigger plus a failing test or command that reproduces it; when execution is impossible, a line-by-line trace of the path from entry to wrong result. For a stale feature map: the map line and the diff line it contradicts — the next agent following the map is the trigger.
 
 ## Test Quality
 

@@ -2,6 +2,8 @@
   "name": "ann-skills",
   "skills": [
     "./skills/process/ask-me",
+    "./skills/process/create-verification-skill",
+    "./skills/process/maintain-verification-skill",
     "./skills/process/plan-it",
     "./skills/process/implement-plan",
     "./skills/process/diagnose-bug",
