@@ -1,6 +1,6 @@
 ---
 name: sync-skills
-description: Sync global skills installed with the skills.sh CLI to their sources: update, install new, remove deleted.
+description: Sync global skills installed with the skills.sh CLI with their sources, updating, installing new ones, and removing deleted ones.
 disable-model-invocation: true
 ---
 
