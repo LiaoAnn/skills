@@ -17,7 +17,7 @@ Process skills also split by invocation — who can reach them.
 - **[ask-me](./ask-me/SKILL.md)** — Router. Type `/ask-me` when unsure which workflow fits. Maps your task to the right flow: change, bug, or review.
 - **[create-verification-skill](./create-verification-skill/SKILL.md)** — Type `/create-verification-skill` in a project to generate its `verify-<project>` skill: discovered surfaces, external services, and environments; launch, doctor, drive, evidence, cleanup; and a feature map.
 - **[maintain-verification-skill](./maintain-verification-skill/SKILL.md)** — Type `/maintain-verification-skill` to audit a project's verify skill against source and the live system, and ship only proven corrections.
-- **[sync-skills](./sync-skills/SKILL.md)** — Type `/sync-skills` to sync global skills installed with the skills.sh CLI to their sources: update, then install new and remove deleted skills that you pick.
+- **[sync-skills](./sync-skills/SKILL.md)** — Type `/sync-skills` to sync global skills installed with the skills.sh CLI to their sources: update, install new skills from the sources you track in `~/.agents/sync-skills.json`, and remove skills deleted upstream after confirmation.
 - **[t3-remote-setup](./t3-remote-setup/SKILL.md)** — Type `/t3-remote-setup <host>` to prepare an SSH host so the T3 Code desktop app connects on the first try, without stray servers or SSH connections.
 
 **Model-invoked**
